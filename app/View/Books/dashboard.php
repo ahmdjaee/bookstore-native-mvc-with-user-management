@@ -1,28 +1,4 @@
-<div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
-</div>
-
-<div id="main">
-    <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>
-</div>  
-
-<script>
-    function openNav() {
-        document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("main").style.marginLeft = "0";
-    }
-</script>
-
-<main style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: auto;">
+<main style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: auto;" >
     <?php if (isset($model['error'])) : ?>
         <div class="alert alert-danger" role="alert">
             <?= $model['error'] ?>
@@ -35,7 +11,7 @@
                     <a class="nav-link active" href="#">Books List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Author</a>
+                    <a class="nav-link" href="author">Author</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">

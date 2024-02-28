@@ -29,7 +29,7 @@ class SessionService
         $session->username = $username;
         $this->sessionRepository->save($session);
 
-        setcookie(self::COOKIE_NAME, $session->id, time() + 3600, '/');
+        setcookie(self::COOKIE_NAME, $session->id, time() + 3600 * 24, '/');
 
         return $session;
     }
@@ -39,7 +39,7 @@ class SessionService
         $sessionId = $_COOKIE[self::COOKIE_NAME] ?? '';
 
         $session = $this->sessionRepository->findById($sessionId);
-        if($session == null){
+        if ($session == null) {
             return null;
         }
 
