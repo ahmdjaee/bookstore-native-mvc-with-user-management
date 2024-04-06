@@ -1,51 +1,36 @@
-<div id="mySidebar" class="sidebar bg-primary shadow">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">x</i></i></a>
-    <a href="#"><i class="fa-solid fa-eject me-3"></i>About</a>
-    <a href="#"><i class="fa-solid fa-eject me-3"></i>Services</a>
-    <a href="#"><i class="fa-solid fa-taxi  me-3"></i>Clients</a>
-    <a href="#"><i class="fa-solid fa-address-book  me-3"></i>Contact</a>
+<div id="mySidebar" class="sidebar bg--primary shadow">
+    <div class="d-flex gap-3 align-items-center p-3">
+        <img src="https://static.vecteezy.com/system/resources/previews/015/693/299/non_2x/book-store-logo-for-business-symbol-vector.jpg" class="rounded-circle img-fluid w-25" alt="">
+        <h4 class="link--hover p-0 m-0 co--white ">Book Store</h4>
+    </div>
+    <a href="javascript:void(0)" id="sidebarAction"><i class="fa-solid fa-bars"></i></a>
+    <a href="/" <?= $_SERVER['REQUEST_URI'] == '/' ? 'class="activeLink"' : '' ?>><i class="fa-solid fa-home "></i><span id="sidebarItem">Dashboard</span></a>
+    <a href="/authors" <?= $_SERVER['REQUEST_URI'] == '/authors' ? 'class="activeLink"' : '' ?>><i class="fa-solid fa-user "></i><span id="sidebarItem">Author</span></a>
+    <a href="/books" <?= $_SERVER['REQUEST_URI'] == '/books' ? 'class="activeLink"' : '' ?>><i class="fa-solid fa-book"></i><span id="sidebarItem">Books</span></a>
+    <a href="#"><i class="fa-solid fa-address-book  "></i><span id="sidebarItem">Contact</span></a>
+    <a href="#"><i class="fa-solid fa-right-from-bracket"></i><span id="sidebarItem">Logout</span></a>
+
 </div>
 
 <script>
-    function openNav() {
-        document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("container").style.marginLeft = "250px";
-        document.getElementById("sideBarButton").style.display = "none";
+    let isClose = false;
 
-    }
-
-    function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("container").style.marginLeft = "0";
-        document.getElementById("sideBarButton").style.display = "block";
-
-    }
+    document.getElementById("sidebarAction").addEventListener("click", () => {
+        isClose = !isClose;
+        if (!isClose) {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("container").style.marginLeft = "250px";
+            const sidebarItem = document.querySelectorAll("#sidebarItem");
+            sidebarItem.forEach((item) => {
+                item.style.display = "inline-block";
+            })
+        } else {
+            document.getElementById("mySidebar").style.width = "85px";
+            document.getElementById("container").style.marginLeft = "85px";
+            const sidebarItem = document.querySelectorAll("#sidebarItem");
+            sidebarItem.forEach((item) => {
+                item.style.display = "none";
+            })
+        }
+    })
 </script>
-
-<nav class="navbar navbar-expand-lg pt-3 pb-3 bg-white shadow-sm">
-    <div class="container">
-
-        <button id="sideBarButton" class="btn btn-primary me-3" style="display: none;" onclick="openNav()"><i class="fa-solid fa-bars" style="color: white;"></i></button>
-
-        <a class="navbar-brand" style="color: #0d6efd;" href="#"><b>CRUD MVC</b></a>
-        <div class="collapse navbar-collapse justify-content-end " id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" style="color: #0d6efd;" href="/">Book List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="add-book" style="color: #0d6efd;">Add Book</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: #0d6efd;">Author</a>
-                </li>
-                <li class="nav-item d-flex align-items-center">
-                    <form method="get" action="add-book" style="display:inline;">
-                        <button type="submit" class="btn btn-danger"><b>Logout</b></button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-</nav>

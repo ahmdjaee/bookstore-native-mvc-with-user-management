@@ -2,6 +2,7 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
+use RootNameSpace\Belajar\PHP\MVC\App\Router;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
 use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
@@ -26,7 +27,7 @@ class BooksController
         $this->service = new BookService($repository);
         $this->sessionService = new SessionService($sessionRepository, $userRepository);
     }
-    public function dashboard()
+    public function index()
     {
         $model = [
             "title" => "Bookstore",
@@ -52,17 +53,9 @@ class BooksController
                     $model['booksError'] = $th->getMessage();
                 }
             }
-            View::render('Books/dashboard', $model);
+            View::render('Books/books', $model);
         }
     }
-
-    public function viewAddBook()
-    {
-        View::render('Books/add-book', [
-            'title' => 'Add new Book'
-        ]);
-    }
-
 
     public function postAddBook()
     {
@@ -76,29 +69,37 @@ class BooksController
                 $request->name = $_POST['name'];
                 $request->genre = $_POST['genre'];
                 $request->releaseDate = $_POST['releaseDate'];
-                $request->author = $_POST['author'];
+                $request->authorId = $_POST['authorId'];
+                $request->pages = $_POST['pages'];
 
-                $this->service->addBook($request);
+                $success = $this->service->addBook($request);
                 $model['success'] = 'Successfully added a new book';
-                View::render('Books/add-book', $model);
+
+                if ($success) {
+                    View::redirect('/books');
+                    // View::render('Books/books', $model);
+                }
+                // $_SERVER['REQUEST_METHOD'] = 'GET';
+                // View::render('Books/books', $model);
+
             } catch (ValidationException $e) {
                 $model['error'] = $e->getMessage();
-                View::render('Books/add-book', $model);
+                View::render('Books/books', $model);
             }
         }
     }
 
-    public function removeBook()
+    public function removeBook(string $id)
     {
         $model = [
             "title" => "Bookstore",
         ];
 
         try {
-            $this->service->removoById($_GET['bookId']);
+            $this->service->removoById($id);
             $books = $this->service->getAllBooks();
             $model['books'] = $books;
-            View::render('Books/dashboard', $model);
+            View::render('Books/books', $model);
         } catch (ValidationException $e) {
             $model['error'] = $e;
         }

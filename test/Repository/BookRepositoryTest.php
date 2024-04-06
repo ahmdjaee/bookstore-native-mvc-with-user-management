@@ -20,15 +20,16 @@ class BookRepositoryTest extends TestCase
     {
 
         $book = new Books(
-            name: "test",
-            genre: "test",
-            releaseDate: "test",
-            author: "test"
+            name: "Attack on titan",
+            genre: "Action",
+            releaseDate: "2122-01-01",
+            authorId: 1234567890,
+            pages: 100
         );
 
         $result = $this->repository->save($book);
 
-        $this->assertEquals($book->bookId, $result->bookId);
+        $this->assertEquals($book->id, $result->id);
     }
 
     public function testGetAllSuccess()
@@ -38,7 +39,8 @@ class BookRepositoryTest extends TestCase
             name: "test",
             genre: "test",
             releaseDate: "test",
-            author: "test"
+            authorId: 1234567890,
+            pages: 100
         );
 
         $this->repository->save($book);

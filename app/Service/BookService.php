@@ -27,7 +27,8 @@ class BookService
             $books->name = $request->name;
             $books->genre = $request->genre;
             $books->releaseDate = $request->releaseDate;
-            $books->author = $request->author;
+            $books->authorId = $request->authorId;
+            $books->pages = $request->pages;
 
             $this->repository->save($books);
 
@@ -48,11 +49,13 @@ class BookService
             case $request->name == trim(""):
             case $request->genre == trim(""):
             case $request->releaseDate == trim(""):
-            case $request->author == trim(""):
+            case $request->authorId == trim(""):
+            case $request->pages == trim(""):
             case $request->name == null:
             case $request->genre == null:
             case $request->releaseDate == null:
-            case $request->author == null:
+            case $request->authorId == null:
+            case $request->pages == null:
                 throw new ValidationException("There must be no empty fields");
         }
     }

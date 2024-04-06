@@ -5,11 +5,12 @@ namespace RootNameSpace\Belajar\PHP\MVC\Domain;
 class Books
 {
     function __construct(
-        public ?string $bookId = null,
+        public ?string $id = null,
         public string $name = "",
         public string $genre = "",
         public string $releaseDate = "",
-        public string $author = "",
+        public string $authorId = "",
+        public int $pages = 0
     ) {
     }
 }

@@ -1,0 +1,29 @@
+
+
+.custom-card {
+    box-shadow: 0 0 4px 0 var(--shadow);
+}
+
+.bg--primary {
+    background-color: var(--primary);
+}
+.bg--dark {
+    background-color: var(--dark);
+}
+
+.co--primary {
+    color: var(--primary);
+}
+
+.co--white {
+    color: white;
+}
+
+
+.co--danger {
+    color: var(--danger);
+}
+
+.link--hover:hover{
+    cursor: pointer;
+}

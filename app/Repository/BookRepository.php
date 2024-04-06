@@ -18,15 +18,16 @@ class BookRepository
     public function save(Books $books): Books
     {
 
-        $sql = "INSERT INTO books (book_id, name, genre, release_date, author) VALUES (:book_id, :name, :genre, :release_date, :author)";
+        $sql = "INSERT INTO books (id, name, genre, release_date, author_id, pages) VALUES (:id, :name, :genre, :release_date, :author_id, :pages)";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute([
-            'book_id' => $books->bookId,
+            'id' => $books->id,
             'name' => $books->name,
             'genre' => $books->genre,
             'release_date' => $books->releaseDate,
-            'author' => $books->author
+            'author_id' => $books->authorId,
+            'pages' => $books->pages
         ]);
 
         return $books;
@@ -34,18 +35,19 @@ class BookRepository
 
     public function getAll(): array
     {
-        $sql = "SELECT * FROM books";
+        $sql = "SELECT * FROM books ORDER BY name ASC LIMIT 20";
 
         $statement = $this->connection->query($sql);
         $array = [];
 
         while ($row = $statement->fetch()) {
             $array[] = new Books(
-                bookId: $row['book_id'],
+                id: $row['id'],
                 name: $row['name'],
                 genre: $row['genre'],
                 releaseDate: $row['release_date'],
-                author: $row['author']
+                authorId: $row['author_id'],
+                pages: $row['pages']
             );
         }
         return $array;
@@ -54,24 +56,25 @@ class BookRepository
     public function findById(string $id): Books
     {
 
-        $sql = "SELECT * FROM books WHERE book_id = :book_id";
+        $sql = "SELECT * FROM books WHERE id = :id";
         $statement = $this->connection->prepare($sql);
-        $statement->execute(['book_id' => $id]);
+        $statement->execute(['id' => $id]);
         $row = $statement->fetch();
         return new Books(
-            bookId: $row['book_id'],
+            id: $row['id'],
             name: $row['name'],
             genre: $row['genre'],
             releaseDate: $row['release_date'],
-            author: $row['author']
+            authorId: $row['author_id'],
+            pages: $row['pages']
         );
     }
 
     public function remove(string $id)
     {
-        $sql = "DELETE FROM books WHERE book_id = :book_id";
+        $sql = "DELETE FROM books WHERE id = :id";
         $statement = $this->connection->prepare($sql);
-        $statement->execute(['book_id' => $id]);
+        $statement->execute(['id' => $id]);
     }
 
     public function removeAll(): void
@@ -81,7 +84,7 @@ class BookRepository
 
     public function search(string $keyword): array
     {
-        $sql = "SELECT * FROM books Where name LIKE ? OR genre LIKE ? OR author LIKE ?";
+        $sql = "SELECT * FROM books Where name LIKE ? OR genre LIKE ? OR author_id LIKE ?";
         $statement = $this->connection->prepare($sql);
 
         $statement->execute(['%' . $keyword . '%', '%' . $keyword . '%', '%' . $keyword . '%']);
@@ -90,11 +93,12 @@ class BookRepository
 
         while ($row = $statement->fetch()) {
             $array[] = new Books(
-                bookId: $row['book_id'],
+                id: $row['id'],
                 name: $row['name'],
                 genre: $row['genre'],
                 releaseDate: $row['release_date'],
-                author: $row['author']
+                authorId: $row['author_id'],
+                pages: $row['pages']
             );
         }
 

@@ -1,33 +1,39 @@
-<main style="display: flex; justify-content: center; flex-direction: column; align-items: center; margin: auto;" >
+<?php include __DIR__ . './../navbar.php' ?>
+<?php include __DIR__ . './../Component/modal.php' ?>
+
+<main style="display: flex; justify-content: center; flex-direction: column; align-items: center; padding: auto;">
     <?php if (isset($model['error'])) : ?>
         <div class="alert alert-danger" role="alert">
             <?= $model['error'] ?>
         </div>
     <?php endif; ?>
-    <div class="card text-center " style="width: 70vw; height: 70vh">
-        <header class="d-flex justify-content-between card-header">
-            <ul class="nav nav-pills card-header-pills">
+
+    <div class="card p-3 pt-0 text-center border-0 " style="width: 70vw; min-height: 85vh; top: 60px; box-shadow: 0 0 4px 0 var(--shadow);">
+        <header class=" w-100 d-flex justify-content-between p-3"> 
+            <h5 class="co--primary"><b>Books</b></h5>
+            <ul class="nav nav-pills card-header-pills d-flex gap-3">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Books List</a>
+                    <button type="button" class="btn btn-primary" id="openModal"> <i class="fa-solid fa-plus"></i></button>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="author">Author</a>
+                <li>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" name="search" placeholder="Search" value="<?= $_GET['search'] ?? null ?>" aria-label="Search">
+                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                    </form>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" name="search" placeholder="Search" value="<?= $_GET['search'] ?? null ?>" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+
         </header>
-        <div class="card-body overflow-y-scroll">
+        <div class="card-body p-0">
             <table class="table">
-                <thead class="text-start">
+                <thead class="text-start position-sticky top-0">
                     <tr>
                         <th scope="col" class="text-center">No</th>
                         <th scope="col">Name</th>
                         <th scope="col">Genre</th>
                         <th scope="col">Release Date</th>
                         <th scope="col">Author</th>
+                        <th scope="col">Pages</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -35,19 +41,20 @@
                     <?php if (isset($model['books'])) : ?>
                         <?php foreach ($model['books'] as $key => $book) : ?>
                             <tr>
-                                <th scope="row" class="text-center"><?= $key + 1 ?></th>
+                                <td scope="row" class="text-center"><?= $key + 1 ?></td>
                                 <td><?= $book->name ?></td>
                                 <td><?= $book->genre ?></td>
                                 <td><?= $book->releaseDate ?></td>
-                                <td><?= $book->author ?></td>
+                                <td><?= $book->authorId ?></td>
+                                <td><?= $book->pages ?></td>
                                 <td>
-                                    <form method="get" action="add-book" style="display:inline;">
-                                        <input type="hidden" name="bookId" value="<?= $book->bookId ?>">
-                                        <button type="submit" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></button>
+                                    <form method="get" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?= $book->id ?>">
+                                        <button type="submit" class="btn btn-sm"><i class="fas fa-pencil-alt co--primary"></i></button>
                                     </form>
-                                    <form method="get" action="remove" style="display:inline;">
-                                        <input type="hidden" name="bookId" value="<?= $book->bookId ?>">
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                                    <form id="removeBook" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?= $book->id ?>" id="id">
+                                        <button class="btn btn-sm"><i class="fa-solid fa-trash co--danger"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -60,7 +67,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer bg-header d-flex justify-content-end">
+        <div class="p-2 bg-white d-flex justify-content-end">
             <ul class="pagination m-0">
                 <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
