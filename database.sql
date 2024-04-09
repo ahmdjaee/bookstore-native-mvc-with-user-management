@@ -6,10 +6,12 @@ CREATE TABLE books (
     release_date varchar(255) NOT NULL,
     author_id INT NOT NULL,
     pages INT NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (author_id) REFERENCES authors(id)
 );
 
-DROP TABLE books;
+ALTER TABLE books
+ADD synopsis TEXT;
 
 SELECT
     *
@@ -26,3 +28,13 @@ CREATE TABLE authors (
     place_of_birth varchar(255) NOT NULL,
     PRIMARY KEY (id)
 );
+
+SELECT
+    b.name,
+    b.genre,
+    b.synopsis,
+    b.release_date,
+    a.name AS author
+FROM
+    books AS b
+    INNER JOIN authors AS a ON b.author_id = a.id;

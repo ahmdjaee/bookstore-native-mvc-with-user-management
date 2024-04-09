@@ -84,4 +84,9 @@ class UsersController
             ]);
         }
     }
+
+    public function logout(){
+        $this->sessionService->destroy();
+        View::redirect('/users/login');
+    }
 }

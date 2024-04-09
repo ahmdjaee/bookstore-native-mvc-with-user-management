@@ -13,10 +13,16 @@
 
 * {
     font-family: "Poppins", sans-serif;
-
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+
+#container {
+    transition: margin-left .5s;
+    margin-left: 250px;
+    height: min-content;
 }
 
 main {
@@ -41,12 +47,17 @@ main {
     text-decoration: none;
     font-size: 20px;
     color: white;
-    display: block;
+    display: flex;
+    align-items: center;
     transition: 0.3s;
 }
 
 .sidebar a i {
     width: 35px;
+}
+
+.sidebar a:hover {
+    background-color: #4870ff;
 }
 
 a.activeLink {
@@ -66,10 +77,6 @@ a.activeLink {
     color: var(--danger);
 }
 
-#container {
-    transition: margin-left .5s;
-    margin-left: 250px;
-}
 
 .table thead tr th {
     color: var(--primary);
@@ -79,30 +86,26 @@ a.activeLink {
 .cards {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(5, minmax(170px, 1fr));
     gap: 16px;
+}
 
+@media screen and (max-width: 1200px) {
+    .cards {
+        grid-template-columns: repeat(4, minmax(170px, 1fr));
+    }
+    
 }
 
 .content {
-    /* margin-top: 75px; */
+    margin-top: 75px;
     display: flex;
-    padding: 16px;
-    gap: 16px;
+    /* padding: 16px; */
+    padding-inline: 32px;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.card {
-    display: flex;
-    gap: 16px;
-    width: 100%;
-    height: 120px;
-    padding: 16px;
-    border-radius: 10px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    align-items: start;
+    height: min-content;
 }
 
 .card:hover {
@@ -112,14 +115,29 @@ a.activeLink {
 
 .card__image {
     min-width: 100px;
-    border-radius: 10px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
     object-fit: cover;
 }
 
 .card__item {
+    padding: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+
+.category__tab {
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+}
+
+.category__tab:hover {
+    color: white;
+    background-color: rgb(214, 139, 0);
+    cursor: pointer;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */

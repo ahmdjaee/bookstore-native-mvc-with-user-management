@@ -64,14 +64,15 @@ class BookService
         return $this->repository->getAll();
     }
 
-    public function search(string $keyword): array
+    public function search(string $keyword): ?array
     {
         $result = $this->repository->search($keyword);
 
         if ($result) {
             return $result;
         } else {
-            throw new ValidationException('No records Found');
+            return null;
+            // throw new ValidationException('No records Found');
         }
     }
 

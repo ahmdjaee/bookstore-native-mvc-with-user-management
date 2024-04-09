@@ -1,5 +1,5 @@
 <?php include __DIR__ . './../navbar.php' ?>
-<?php include __DIR__ . './../Component/modal.php' ?>
+<?php include __DIR__ . './modal.php' ?>
 
 <main style="display: flex; justify-content: center; flex-direction: column; align-items: center; padding: auto;">
     <?php if (isset($model['error'])) : ?>
@@ -37,21 +37,21 @@
                     </tr>
                 </thead>
                 <tbody class="text-start">
-                    <?php if (isset($model['books'])) : ?>
-                        <?php foreach ($model['books'] as $key => $book) : ?>
+                    <?php if (isset($model['data'])) : ?>
+                        <?php foreach ($model['data'] as $key => $data) : ?>
                             <tr>
                                 <td scope="row" class="text-center"><?= $key + 1 ?></td>
-                                <td><?= $book->name ?></td>
-                                <td><?= $book->genre ?></td>
-                                <td><?= $book->releaseDate ?></td>
-                                <td><?= $book->author ?></td>
+                                <td><?= $data->name ?></td>
+                                <td><?= $data->email ?></td>
+                                <td><?= $data->birthdate ?></td>
+                                <td><?= $data->placeOfBirth ?></td>
                                 <td>
                                     <form method="get" style="display:inline;">
-                                        <input type="hidden" name="id" value="<?= $book->id ?>">
+                                        <input type="hidden" name="id" value="<?= $data->id ?>">
                                         <button type="submit" class="btn btn-sm"><i class="fas fa-pencil-alt co--primary"></i></button>
                                     </form>
                                     <form id="removeBook" style="display:inline;">
-                                        <input type="hidden" name="id" value="<?= $book->id ?>" id="id">
+                                        <input type="hidden" name="id" value="<?= $data->id ?>" id="id">
                                         <button class="btn btn-sm"><i class="fa-solid fa-trash co--danger"></i></button>
                                     </form>
                                 </td>

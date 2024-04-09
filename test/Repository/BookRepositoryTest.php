@@ -13,7 +13,7 @@ class BookRepositoryTest extends TestCase
     protected function setUp(): void
     {
         $this->repository = new BookRepository(Database::getConnection());
-        $this->repository->removeAll();
+        // $this->repository->removeAll();
     }
 
     public function testSaveSuccess()
@@ -23,7 +23,7 @@ class BookRepositoryTest extends TestCase
             name: "Attack on titan",
             genre: "Action",
             releaseDate: "2122-01-01",
-            authorId: 1234567890,
+            authorId: 17,
             pages: 100
         );
 

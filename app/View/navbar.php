@@ -8,8 +8,7 @@
     <a href="/authors" <?= $_SERVER['REQUEST_URI'] == '/authors' ? 'class="activeLink"' : '' ?>><i class="fa-solid fa-user "></i><span id="sidebarItem">Author</span></a>
     <a href="/books" <?= $_SERVER['REQUEST_URI'] == '/books' ? 'class="activeLink"' : '' ?>><i class="fa-solid fa-book"></i><span id="sidebarItem">Books</span></a>
     <a href="#"><i class="fa-solid fa-address-book  "></i><span id="sidebarItem">Contact</span></a>
-    <a href="#"><i class="fa-solid fa-right-from-bracket"></i><span id="sidebarItem">Logout</span></a>
-
+    <a href="/users/logout"><i class="fa-solid fa-right-from-bracket"></i><span id="sidebarItem">Logout</span></a>
 </div>
 
 <script>
@@ -22,7 +21,7 @@
             document.getElementById("container").style.marginLeft = "250px";
             const sidebarItem = document.querySelectorAll("#sidebarItem");
             sidebarItem.forEach((item) => {
-                item.style.display = "inline-block";
+                item.style.display = "flex";
             })
         } else {
             document.getElementById("mySidebar").style.width = "85px";

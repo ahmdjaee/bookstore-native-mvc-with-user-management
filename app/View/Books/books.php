@@ -1,5 +1,5 @@
 <?php include __DIR__ . './../navbar.php' ?>
-<?php include __DIR__ . './../Component/modal.php' ?>
+<?php include __DIR__ . './modal.php' ?>
 
 <main style="display: flex; justify-content: center; flex-direction: column; align-items: center; padding: auto;">
     <?php if (isset($model['error'])) : ?>
@@ -32,7 +32,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Genre</th>
                         <th scope="col">Release Date</th>
-                        <th scope="col">Author</th>
+                        <th scope="col">Author Id</th>
                         <th scope="col">Pages</th>
                         <th scope="col">Action</th>
                     </tr>

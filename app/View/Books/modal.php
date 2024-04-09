@@ -24,24 +24,25 @@
                     <div class="mb-3">
                         <label for="genre" class="form-label">Genre</label>
                         <select class="form-select" name="genre" id="genre" aria-label="Default select example">
-                            <option selected value="<?= $_POST['genre'] ?? '' ?>">Open this select menu</option>
+                            <option selected value="<?= $_POST['genre'] ?? '' ?>">Genre</option>
                             <option value="Action">Action</option>
                             <option value="Romance">Romance</option>
                             <option value="Drama">Drama</option>
                             <option value="Sains">Sains</option>
                         </select>
                     </div>
-                    <!-- <div class="mb-3">
-                        <label for="genre" class="form-label">Genre</label>
-                        <input type="text" id="genre" name="genre" class="form-control" placeholder="Genre" value="">
-                    </div> -->
                     <div class="mb-3">
                         <label for="releaseDate" class="form-label">Release Date</label>
                         <input type="date" id="releaseDate" name="releaseDate" class="form-control" placeholder="Release Date" value="<?= $_POST['releaseDate'] ?? '' ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="authorId" class="form-label">Author</label>
-                        <input type="text" id="authorId" name="authorId" class="form-control" placeholder="Author" value="<?= $_POST['authorId'] ?? '' ?>">
+                        <label for="genre" class="form-label">Author</label>
+                        <select class="form-select" name="authorId" id="authorId" aria-label="Default select example">
+                            <option selected value="<?= $_POST['authorId'] ?? '' ?>">Author</option>
+                            <?php foreach ($model['authors'] as $author) : ?>
+                                <option value="<?= $author->id ?>"><?= $author->name ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="pages" class="form-label">Total Pages</label>

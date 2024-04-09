@@ -1,6 +1,6 @@
 <nav class="nav nav-pills nav-justified position-absolute w-100 d-flex justify-content-end pe-5 pt-5">
     <div class="d-flex gap-3">
-        <a class="nav-link shadow-sm" style="background-color: white;"  href="register">Register</a>
+        <a class="nav-link shadow-sm" style="background-color: white;" href="register">Register</a>
         <a class="nav-link active shadow-sm" href="" aria-current="page">Login</a>
     </div>
 </nav>

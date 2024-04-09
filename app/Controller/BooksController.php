@@ -7,9 +7,11 @@ use RootNameSpace\Belajar\PHP\MVC\App\View;
 use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\BooksListRequest;
+use RootNameSpace\Belajar\PHP\MVC\Repository\AuthorRepository;
 use RootNameSpace\Belajar\PHP\MVC\Repository\BookRepository;
 use RootNameSpace\Belajar\PHP\MVC\Repository\SessionRepository;
 use RootNameSpace\Belajar\PHP\MVC\Repository\UserRepository;
+use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 use RootNameSpace\Belajar\PHP\MVC\Service\BookService;
 use RootNameSpace\Belajar\PHP\MVC\Service\SessionService;
 
@@ -17,15 +19,18 @@ class BooksController
 {
     private $service;
     private SessionService $sessionService;
+    private AuthorService $authorService;
     function __construct()
     {
         $connection = Database::getConnection();
         $repository = new BookRepository($connection);
         $sessionRepository = new SessionRepository($connection);
         $userRepository = new UserRepository($connection);
+        $authorRepository = new AuthorRepository($connection);
 
         $this->service = new BookService($repository);
         $this->sessionService = new SessionService($sessionRepository, $userRepository);
+        $this->authorService = new AuthorService($authorRepository);
     }
     public function index()
     {
@@ -38,21 +43,17 @@ class BooksController
         if ($session == null) {
             View::redirect("/users/login");
         } else {
-            if (isset($_GET['search'])) {
-                try {
-                    $books =  $this->service->search($_GET['search']);
-                    $model['books'] = $books;
-                } catch (ValidationException $e) {
-                    $model['booksError'] = $e->getMessage();
-                }
-            } else {
-                try {
-                    $books = $this->service->getAllBooks();
-                    $model['books'] = $books;
-                } catch (\Throwable $th) {
-                    $model['booksError'] = $th->getMessage();
-                }
+            
+            try {
+                $search = $_GET['search'] ?? '';
+                $books =  $this->service->search($search);
+                $authors = $this->authorService->showAll();
+                $model['books'] = $books;
+                $model['authors'] = $authors;
+            } catch (ValidationException $e) {
+                $model['booksError'] = $e->getMessage();
             }
+
             View::render('Books/books', $model);
         }
     }
@@ -77,14 +78,10 @@ class BooksController
 
                 if ($success) {
                     View::redirect('/books');
-                    // View::render('Books/books', $model);
                 }
-                // $_SERVER['REQUEST_METHOD'] = 'GET';
-                // View::render('Books/books', $model);
-
             } catch (ValidationException $e) {
                 $model['error'] = $e->getMessage();
-                View::render('Books/books', $model);
+                View::redirect('/books');
             }
         }
     }
