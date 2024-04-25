@@ -10,8 +10,10 @@ CREATE TABLE books (
     FOREIGN KEY (author_id) REFERENCES authors(id)
 );
 
-ALTER TABLE books
-ADD synopsis TEXT;
+ALTER TABLE
+    books
+ADD
+    synopsis TEXT;
 
 SELECT
     *
@@ -37,4 +39,4 @@ SELECT
     a.name AS author
 FROM
     books AS b
-    INNER JOIN authors AS a ON b.author_id = a.id;
+    INNER JOIN authors AS a ON b.author_id = a.id LIMIT 2 OFFSET 0;

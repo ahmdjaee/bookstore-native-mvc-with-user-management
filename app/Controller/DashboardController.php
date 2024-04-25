@@ -31,7 +31,7 @@ class DashboardController
         $model = [];
 
         try {
-            $model['books'] = $this->bookService->getAllBooks();
+            $model['books'] = $this->bookService->search();
         } catch (ValidationException $e) {
             $model['error'] = $e->getMessage();
         }

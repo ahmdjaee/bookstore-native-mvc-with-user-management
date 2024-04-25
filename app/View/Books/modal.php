@@ -9,7 +9,7 @@
             <?= $model['error'] ?>
         </div>
     <?php endif; ?>
-    <div class="card" style="width: 50vw; height: min-content;">
+    <div class="card" style="width: 50vw; height: 90vh; overflow-y: scroll">
         <div class="card-body">
             <form method="post">
                 <fieldset>
@@ -20,6 +20,14 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="<?= $_POST['name'] ?? '' ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="synopsis" class="form-label">Synopsis</label>
+                        <textarea class="form-control" id="synopsis" name="synopsis" value="<?= $_POST['synopsis'] ?? '' ?>" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Cover</label>
+                        <input class="form-control" type="file" id="formFile">
                     </div>
                     <div class="mb-3">
                         <label for="genre" class="form-label">Genre</label>
@@ -54,3 +62,4 @@
         </div>
     </div>
 </div>
+

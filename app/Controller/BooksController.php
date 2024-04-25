@@ -2,6 +2,7 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
+use JsonSerializable;
 use RootNameSpace\Belajar\PHP\MVC\App\Router;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
 use RootNameSpace\Belajar\PHP\MVC\Config\Database;
@@ -11,6 +12,7 @@ use RootNameSpace\Belajar\PHP\MVC\Repository\AuthorRepository;
 use RootNameSpace\Belajar\PHP\MVC\Repository\BookRepository;
 use RootNameSpace\Belajar\PHP\MVC\Repository\SessionRepository;
 use RootNameSpace\Belajar\PHP\MVC\Repository\UserRepository;
+use RootNameSpace\Belajar\PHP\MVC\Resource\BookResource;
 use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 use RootNameSpace\Belajar\PHP\MVC\Service\BookService;
 use RootNameSpace\Belajar\PHP\MVC\Service\SessionService;
@@ -43,7 +45,7 @@ class BooksController
         if ($session == null) {
             View::redirect("/users/login");
         } else {
-            
+
             try {
                 $search = $_GET['search'] ?? '';
                 $books =  $this->service->search($search);
@@ -71,6 +73,7 @@ class BooksController
                 $request->genre = $_POST['genre'];
                 $request->releaseDate = $_POST['releaseDate'];
                 $request->authorId = $_POST['authorId'];
+                $request->synopsis = $_POST['synopsis'];
                 $request->pages = $_POST['pages'];
 
                 $success = $this->service->addBook($request);
@@ -93,12 +96,41 @@ class BooksController
         ];
 
         try {
-            $this->service->removoById($id);
-            $books = $this->service->getAllBooks();
+            $search = $_GET['search'] ?? '';
+            $this->service->removeById($id);
+            $books = $this->service->search($search);
             $model['books'] = $books;
-            View::render('Books/books', $model);
+            View::redirect('/books', $model);
         } catch (ValidationException $e) {
             $model['error'] = $e;
+            View::redirect('/books', $model);
+        }
+    }
+
+    public function getById(string $id)
+    {
+        try {
+            $detail = $this->service->getById($id);
+            $author = $this->authorService->getById($detail->authorId);
+
+            if ($detail != null) {
+                header('Content-Type: application/json');
+                echo json_encode(['data' => [
+                    'id' => $detail->id,
+                    'name' => $detail->name,
+                    'genre' => $detail->genre,
+                    'releaseDate' => $detail->releaseDate,
+                    'synopsis' => $detail->synopsis,
+                    'pages' => $detail->pages,
+                    'author' => $author
+                ]]);
+            }
+        } catch (ValidationException $e) {
+            header('Content-Type: application/json');
+            echo json_encode(['errors' => [
+                'message' => $e->getMessage()
+            ]]);
+            http_response_code(404);
         }
     }
 }

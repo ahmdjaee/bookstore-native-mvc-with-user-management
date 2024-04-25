@@ -10,6 +10,7 @@ class Books
         public string $genre = "",
         public string $releaseDate = "",
         public string $authorId = "",
+        public string $synopsis = "",
         public int $pages = 0
     ) {
     }

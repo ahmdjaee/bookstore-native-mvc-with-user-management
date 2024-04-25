@@ -1,15 +1,15 @@
-<?php include __DIR__ . './../navbar.php' ?>
+<?php include __DIR__ . './../sidebar.php' ?>
 <?php include __DIR__ . './modal.php' ?>
 
-<main style="display: flex; justify-content: center; flex-direction: column; align-items: center; padding: auto;">
+<main id="container" class="d-flex flex-column align-items-center" style="margin-left: 250px; transition: 0.5s; height: 100%">
     <?php if (isset($model['error'])) : ?>
         <div class="alert alert-danger" role="alert">
             <?= $model['error'] ?>
         </div>
     <?php endif; ?>
 
-    <div class="card p-3 pt-0 text-center border-0 " style="width: 70vw; min-height: 85vh; top: 60px; box-shadow: 0 0 4px 0 var(--shadow);">
-        <header class=" w-100 d-flex justify-content-between p-3"> 
+    <div class="card p-3 pt-2 text-center border-0 " style="width: 95%; height: min-content; <?php echo (!isset($model['error']))  ? 'top: 24px;' : 'top: 0px;' ?> box-shadow: 0 0 4px 0 var(--shadow);">
+        <header class=" w-100 d-flex justify-content-between p-3">
             <h5 class="co--primary"><b>Author</b></h5>
             <ul class="nav nav-pills card-header-pills d-flex gap-3">
                 <li class="nav-item">
@@ -24,7 +24,7 @@
             </ul>
 
         </header>
-        <div class="card-body p-0">
+        <div class="card-body p-0" style="min-height: 75vh;">
             <table class="table">
                 <thead class="text-start position-sticky top-0">
                     <tr>
@@ -46,11 +46,9 @@
                                 <td><?= $data->birthdate ?></td>
                                 <td><?= $data->placeOfBirth ?></td>
                                 <td>
-                                    <form method="get" style="display:inline;">
-                                        <input type="hidden" name="id" value="<?= $data->id ?>">
-                                        <button type="submit" class="btn btn-sm"><i class="fas fa-pencil-alt co--primary"></i></button>
-                                    </form>
-                                    <form id="removeBook" style="display:inline;">
+                                    <button type="button" id="authorId" onclick="showModal(<?= $data->id ?>)" class="btn btn-sm"><i class="fas fa-pencil-alt co--primary"></i></button>
+
+                                    <form id="removeBook" style="display:inline;" action="/authors/<?= $data->id ?>/delete">
                                         <input type="hidden" name="id" value="<?= $data->id ?>" id="id">
                                         <button class="btn btn-sm"><i class="fa-solid fa-trash co--danger"></i></button>
                                     </form>
@@ -76,3 +74,5 @@
         </div>
     </div>
 </main>
+
+<script src="js/authors/authors.js"></script>

@@ -32,10 +32,10 @@ class AuthorRepository
         return $author;
     }
 
-    public function getAll(int $page, int $limit ): array
+    public function getAll(int $page, int $limit): array
     {
 
-        $sql = "SELECT * FROM authors ORDER BY name ASC LIMIT $limit OFFSET $page";
+        $sql = "SELECT * FROM authors ORDER BY id DESC";
 
         $statement = $this->connection->query($sql);
 
@@ -51,5 +51,42 @@ class AuthorRepository
         }
 
         return $array;
+    }
+
+    public function remove(string $id)
+    {
+        try {
+            $sql = "DELETE FROM authors WHERE id = :id";
+            $statement = $this->connection->prepare($sql);
+            $statement->execute(['id' => $id]);
+        } finally {
+            $statement->closeCursor();
+        }
+    }
+
+    public function findById(string $id): ?Author
+    {
+
+        $sql = "SELECT * FROM authors WHERE id = :id";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute(['id' => $id]);
+        $row = $statement->fetch();
+
+        try {
+            if ($row) {
+                return new Author(
+                    id: $row['id'],
+                    name: $row['name'],
+                    email: $row['email'],
+                    birthdate: $row['birthdate'],
+                    placeOfBirth: $row['place_of_birth']
+                );
+            } else {
+                return null;
+            }
+        } finally {
+            $statement->closeCursor();
+        }
     }
 }

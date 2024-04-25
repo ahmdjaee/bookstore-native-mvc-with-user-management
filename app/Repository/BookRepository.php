@@ -18,7 +18,7 @@ class BookRepository
     public function save(Books $books): Books
     {
 
-        $sql = "INSERT INTO books (id, name, genre, release_date, author_id, pages) VALUES (:id, :name, :genre, :release_date, :author_id, :pages)";
+        $sql = "INSERT INTO books (id, name, genre, release_date, author_id, synopsis , pages) VALUES (:id, :name, :genre, :release_date, :author_id, :synopsis , :pages)";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute([
@@ -27,6 +27,7 @@ class BookRepository
             'genre' => $books->genre,
             'release_date' => $books->releaseDate,
             'author_id' => $books->authorId,
+            'synopsis' => $books->synopsis,
             'pages' => $books->pages
         ]);
 
@@ -47,34 +48,48 @@ class BookRepository
                 genre: $row['genre'],
                 releaseDate: $row['release_date'],
                 authorId: $row['author_id'],
+                synopsis: $row['synopsis'],
                 pages: $row['pages']
             );
         }
         return $array;
     }
 
-    public function findById(string $id): Books
+    public function findById(string $id): ?Books
     {
-
         $sql = "SELECT * FROM books WHERE id = :id";
         $statement = $this->connection->prepare($sql);
         $statement->execute(['id' => $id]);
         $row = $statement->fetch();
-        return new Books(
-            id: $row['id'],
-            name: $row['name'],
-            genre: $row['genre'],
-            releaseDate: $row['release_date'],
-            authorId: $row['author_id'],
-            pages: $row['pages']
-        );
+
+        try {
+            if ($row) {
+                return new Books(
+                    id: $row['id'],
+                    name: $row['name'],
+                    genre: $row['genre'],
+                    releaseDate: $row['release_date'],
+                    authorId: $row['author_id'],
+                    synopsis: $row['synopsis'],
+                    pages: $row['pages']
+                );
+            } else {
+                return null;
+            }
+        } finally {
+            $statement->closeCursor();
+        }
     }
 
     public function remove(string $id)
     {
-        $sql = "DELETE FROM books WHERE id = :id";
-        $statement = $this->connection->prepare($sql);
-        $statement->execute(['id' => $id]);
+        try {
+            $sql = "DELETE FROM books WHERE id = :id";
+            $statement = $this->connection->prepare($sql);
+            $statement->execute(['id' => $id]);
+        } finally {
+            $statement->closeCursor();
+        }
     }
 
     public function removeAll(): void
@@ -82,9 +97,15 @@ class BookRepository
         $this->connection->exec("DELETE from books");
     }
 
-    public function search(string $keyword): array
+    public function search(string $keyword = "", int $page = 1, int $limit = 15): array
     {
-        $sql = "SELECT * FROM books Where name LIKE ? OR genre LIKE ? OR author_id LIKE ?";
+
+        // $page = 1;
+        // $limit = 6;
+        // $perPage = $limit / $page;
+        $offset = ($page - 1) * $limit;
+
+        $sql = "SELECT * FROM books Where name LIKE ? OR genre LIKE ? OR author_id LIKE ? ORDER BY id DESC LIMIT $limit OFFSET $offset";
         $statement = $this->connection->prepare($sql);
 
         $statement->execute(['%' . $keyword . '%', '%' . $keyword . '%', '%' . $keyword . '%']);
@@ -98,6 +119,7 @@ class BookRepository
                 genre: $row['genre'],
                 releaseDate: $row['release_date'],
                 authorId: $row['author_id'],
+                synopsis: $row['synopsis'],
                 pages: $row['pages']
             );
         }

@@ -8,5 +8,6 @@ class BooksListRequest
     public ?string $genre = null;
     public ?string $releaseDate = null;
     public ?string $authorId = null;
+    public ?string $synopsis = null;
     public ?string $pages = null;
 }

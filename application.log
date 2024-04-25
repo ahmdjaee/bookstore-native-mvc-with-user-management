@@ -1,0 +1,58 @@
+
+{
+    "message": "Test Result",
+    "context": [
+        {
+            "id": "276",
+            "name": "Attack on titan 4",
+            "genre": "Action",
+            "releaseDate": "2122-01-01",
+            "authorId": "17",
+            "synopsis": "Laskar Pelangi bercerita tentang kehidupan 10 anak lelaki di Belitong, Indonesia, yang mendirikan sekolah Muhammadiyah karena keterbatasan ekonomi.  Mereka berjuang keras untuk tetap bisa belajar dengan menghadapi berbagai rintangan,  mulai dari ketidakcukupan biaya hingga cemoohan dari orang sekitar.  Dengan kegigihan mereka dan bimbingan seorang guru yang inspiratif,  mereka membuktikan bahwa keterbatasan bukanlah halangan untuk meraih cita-cita.",
+            "pages": 100
+        },
+        {
+            "id": "275",
+            "name": "Attack on titan 3",
+            "genre": "Action",
+            "releaseDate": "2122-01-01",
+            "authorId": "17",
+            "synopsis": "Laskar Pelangi bercerita tentang kehidupan 10 anak lelaki di Belitong, Indonesia, yang mendirikan sekolah Muhammadiyah karena keterbatasan ekonomi.  Mereka berjuang keras untuk tetap bisa belajar dengan menghadapi berbagai rintangan,  mulai dari ketidakcukupan biaya hingga cemoohan dari orang sekitar.  Dengan kegigihan mereka dan bimbingan seorang guru yang inspiratif,  mereka membuktikan bahwa keterbatasan bukanlah halangan untuk meraih cita-cita.",
+            "pages": 100
+        }
+    ],
+    "level": 200,
+    "level_name": "INFO",
+    "channel": "RootNameSpace\\Belajar\\PHP\\MVC\\Repository\\BookRepositoryTest",
+    "datetime": "2024-04-24T19:08:41.195865+02:00",
+    "extra": {}
+}
+
+{
+    "message": "Test Result",
+    "context": [
+        {
+            "id": "274",
+            "name": "Attack on titan 2",
+            "genre": "Action",
+            "releaseDate": "2122-01-01",
+            "authorId": "17",
+            "synopsis": "Laskar Pelangi bercerita tentang kehidupan 10 anak lelaki di Belitong, Indonesia, yang mendirikan sekolah Muhammadiyah karena keterbatasan ekonomi.  Mereka berjuang keras untuk tetap bisa belajar dengan menghadapi berbagai rintangan,  mulai dari ketidakcukupan biaya hingga cemoohan dari orang sekitar.  Dengan kegigihan mereka dan bimbingan seorang guru yang inspiratif,  mereka membuktikan bahwa keterbatasan bukanlah halangan untuk meraih cita-cita.",
+            "pages": 100
+        },
+        {
+            "id": "273",
+            "name": "Attack on titan 1",
+            "genre": "Action",
+            "releaseDate": "2122-01-01",
+            "authorId": "17",
+            "synopsis": "Laskar Pelangi bercerita tentang kehidupan 10 anak lelaki di Belitong, Indonesia, yang mendirikan sekolah Muhammadiyah karena keterbatasan ekonomi.  Mereka berjuang keras untuk tetap bisa belajar dengan menghadapi berbagai rintangan,  mulai dari ketidakcukupan biaya hingga cemoohan dari orang sekitar.  Dengan kegigihan mereka dan bimbingan seorang guru yang inspiratif,  mereka membuktikan bahwa keterbatasan bukanlah halangan untuk meraih cita-cita.",
+            "pages": 100
+        }
+    ],
+    "level": 200,
+    "level_name": "INFO",
+    "channel": "RootNameSpace\\Belajar\\PHP\\MVC\\Repository\\BookRepositoryTest",
+    "datetime": "2024-04-24T19:09:18.138681+02:00",
+    "extra": {}
+}

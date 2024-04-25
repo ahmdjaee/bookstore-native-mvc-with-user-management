@@ -31,7 +31,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="placeOfBirth" class="form-label">Place Of Birth</label>
-                        <input type="date" id="placeOfBirth" name="placeOfBirth" class="form-control" placeholder="Release Date" value="<?= $_POST['placeOfBirth'] ?? '' ?>">
+                        <input type="text" id="placeOfBirth" name="placeOfBirth" class="form-control" placeholder="Place Of Birth" value="<?= $_POST['placeOfBirth'] ?? '' ?>">
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                 </fieldset>

@@ -1,11 +1,10 @@
 <?php
 
 use RootNameSpace\Belajar\PHP\MVC\App\Router;
-use RootNameSpace\Belajar\PHP\MVC\App\View;
 use RootNameSpace\Belajar\PHP\MVC\Controller\AuthorController;
 use RootNameSpace\Belajar\PHP\MVC\Controller\BooksController;
 use RootNameSpace\Belajar\PHP\MVC\Controller\DashboardController;
-use RootNameSpace\Belajar\PHP\MVC\Controller\ProductController;
+use RootNameSpace\Belajar\PHP\MVC\Controller\HomeController;
 use RootNameSpace\Belajar\PHP\MVC\Controller\UsersController;
 use RootNameSpace\Belajar\PHP\MVC\Middleware\MustLoginMiddleware;
 use RootNameSpace\Belajar\PHP\MVC\Middleware\MustNotLoginMiddleware;
@@ -20,12 +19,20 @@ Router::add('GET', '/users/logout', UsersController::class, 'logout',  [MustNotL
 
 Router::add('GET', '/authors', AuthorController::class, 'author', [MustLoginMiddleware::class]);
 Router::add('POST', '/authors', AuthorController::class, 'postAuthor', [MustLoginMiddleware::class]);
+Router::add('GET', '/authors/([0-9a-zA-Z]*)/delete', AuthorController::class, 'removeAuthor', [MustLoginMiddleware::class]);
 
-Router::add('GET', '/', DashboardController::class, 'dashboard', [MustLoginMiddleware::class]);
+Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', [MustLoginMiddleware::class]);
 
 Router::add('GET', '/books', BooksController::class, 'index', [MustLoginMiddleware::class]);
 Router::add('POST', '/books', BooksController::class, 'postAddBook', [MustLoginMiddleware::class]);
-Router::add('PUT', '/([0-9a-zA-Z]*)', BooksController::class, 'removeBook', [MustLoginMiddleware::class]);
-Router::add('GET', '/register', BooksController::class, 'register', [MustLoginMiddleware::class]);
+Router::add('GET', '/books/([0-9a-zA-Z]*)/delete', BooksController::class, 'removeBook', [MustLoginMiddleware::class]);
+
+// Get Book Detail Api
+Router::add('GET', '/api/books/([0-9a-zA-Z]*)', BooksController::class, 'getById');
+
+Router::add('GET', '/api/authors/([0-9a-zA-Z]*)', AuthorController::class, 'getById');
+
+Router::add('GET', '/', HomeController::class, 'home');
+Router::add('GET', '/search', HomeController::class, 'search');
 
 Router::run();

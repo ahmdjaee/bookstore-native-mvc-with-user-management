@@ -28,6 +28,7 @@ class BookService
             $books->genre = $request->genre;
             $books->releaseDate = $request->releaseDate;
             $books->authorId = $request->authorId;
+            $books->synopsis = $request->synopsis;
             $books->pages = $request->pages;
 
             $this->repository->save($books);
@@ -59,12 +60,12 @@ class BookService
                 throw new ValidationException("There must be no empty fields");
         }
     }
-    public function getAllBooks(): array
-    {
-        return $this->repository->getAll();
-    }
+    // public function getAllBooks(): array
+    // {
+    //     return $this->repository->getAll();
+    // }
 
-    public function search(string $keyword): ?array
+    public function search(string $keyword = ""): ?array
     {
         $result = $this->repository->search($keyword);
 
@@ -76,12 +77,23 @@ class BookService
         }
     }
 
-    public function removoById(string $id)
+    public function removeById(string $id)
     {
         $find = $this->repository->findById($id);
 
         if ($find) {
             $this->repository->remove($id);
+        } else {
+            throw new ValidationException('Id Not Found');
+        }
+    }
+
+    public function getById(string $id)
+    {
+        $find = $this->repository->findById($id);
+
+        if ($find) {
+            return $find;
         } else {
             throw new ValidationException('Id Not Found');
         }

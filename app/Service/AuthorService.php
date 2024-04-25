@@ -21,7 +21,7 @@ class AuthorService
     {
         $authors = $this->repository->getAll($page, $limit);
 
-        if (count($authors) > 0) {
+        if ($authors != null) {
             return $authors;
         } else {
             throw new ValidationException("Data not found");
@@ -59,6 +59,26 @@ class AuthorService
             case $request->birthdate == null:
             case $request->placeOfBirth == null:
                 throw new ValidationException("There must be no empty fields");
+        }
+    }
+
+    public function removeById(string $id)
+    {
+        $find = $this->repository->findById($id);
+
+        if ($find) {
+            $this->repository->remove($id);
+        } else {
+            throw new ValidationException('Id Not Found');
+        }
+    }
+
+    public function getById(int $id): Author
+    {
+        if ($author = $this->repository->findById($id)) {
+            return $author;
+        } else {
+            throw new ValidationException("Data not found");
         }
     }
 }
