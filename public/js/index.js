@@ -6,7 +6,7 @@ const removeBook = document.getElementById('removeBook');
 const formAuthor = document.getElementById('formAuthor');
 const modal = document.getElementById('modal');
 
-const baseUrl = 'http://localhost:8001/';
+const baseUrl = 'http://localhost:8001';
 
 document.addEventListener('DOMContentLoaded', () => {
     openModal.addEventListener('click', () => {

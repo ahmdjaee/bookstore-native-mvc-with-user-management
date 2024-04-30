@@ -26,7 +26,7 @@ class BookRepositoryTest extends TestCase
             name: "Attack on titan",
             genre: "Action",
             releaseDate: "2122-01-01",
-            authorId: 17,
+            authorId: 40,
             synopsis: 'Laskar Pelangi bercerita tentang kehidupan 10 anak lelaki di Belitong, Indonesia, yang mendirikan sekolah Muhammadiyah karena keterbatasan ekonomi.  Mereka berjuang keras untuk tetap bisa belajar dengan menghadapi berbagai rintangan,  mulai dari ketidakcukupan biaya hingga cemoohan dari orang sekitar.  Dengan kegigihan mereka dan bimbingan seorang guru yang inspiratif,  mereka membuktikan bahwa keterbatasan bukanlah halangan untuk meraih cita-cita.',
             pages: 100
         );

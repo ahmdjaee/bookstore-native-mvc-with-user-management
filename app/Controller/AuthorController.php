@@ -93,4 +93,25 @@ class AuthorController
             ]], 404);
         }
     }
+
+    public function updateById(int $id)
+    {
+        $model = [
+            "title" => "Bookstore",
+        ];
+        try {
+            $request = new AuthorRequest(
+                name: $_POST['name'],
+                email: $_POST['email'],
+                birthdate: $_POST['birthdate'],
+                placeOfBirth: $_POST['placeOfBirth']
+            );
+
+            $this->service->updateById($id, $request);
+            View::redirect('/authors');
+        } catch (ValidationException $e) {
+            $model['error'] = $e->getMessage();
+            View::render('Authors/authors',  $model);
+        }
+    }
 }

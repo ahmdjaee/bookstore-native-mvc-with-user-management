@@ -7,8 +7,10 @@ function showModal(id) {
     const pages = document.getElementById('pages');
 
     document.getElementById('modal').style.display = 'flex';
+
     const ajax = new XMLHttpRequest();
-    ajax.open('GET', `${baseUrl}api/books/${id}`);
+    ajax.open('GET', `${baseUrl}/api/books/${id}`);
+    ajax.send();
 
     ajax.addEventListener('load', () => {
         const response = JSON.parse(ajax.response);
@@ -22,5 +24,7 @@ function showModal(id) {
         synopsis.value = data.synopsis;
         releaseDate.value = data.releaseDate;
     })
-    ajax.send();
+
+    document.getElementById('formBook').setAttribute('action', `${baseUrl}/books/${id}/update`);
 }
+

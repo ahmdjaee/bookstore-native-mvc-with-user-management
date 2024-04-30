@@ -11,7 +11,6 @@ class AuthorRepository
 
     public function __construct(\PDO $connection)
     {
-
         $this->connection = $connection;
     }
 
@@ -88,5 +87,22 @@ class AuthorRepository
         } finally {
             $statement->closeCursor();
         }
+    }
+
+    public function update(Author $author): Author
+    {
+        $sql = "UPDATE authors SET name = :name, email = :email, birthdate = :birthdate, place_of_birth = :place_of_birth WHERE id = :id";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute([
+            'id' => $author->id,
+            'name' => $author->name,
+            'email' => $author->email,
+            'birthdate' => $author->birthdate,
+            'place_of_birth' => $author->placeOfBirth
+
+        ]);
+
+        return $author;
     }
 }

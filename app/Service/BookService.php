@@ -98,4 +98,35 @@ class BookService
             throw new ValidationException('Id Not Found');
         }
     }
+
+    public function updateById(string $id, BooksListRequest $request): BooksListResponse
+    {
+        $this->validateBooksListRequest($request);
+        $find = $this->repository->findById($id);
+
+        if (!$find) {
+            throw new ValidationException('Id Not Found');
+        }
+
+        try {
+            $books = new Books();
+
+            $books->id = $id;
+            $books->name = $request->name;
+            $books->genre = $request->genre;
+            $books->releaseDate = $request->releaseDate;
+            $books->authorId = $request->authorId;
+            $books->synopsis = $request->synopsis;
+            $books->pages = $request->pages;
+
+            $this->repository->update($books);
+
+            $response = new BooksListResponse();
+            $response->books = $books;
+
+            return $response;
+        } catch (\Exception $e) {
+            throw new ValidationException($e->getMessage());
+        }
+    }
 }

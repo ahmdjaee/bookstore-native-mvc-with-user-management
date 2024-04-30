@@ -89,6 +89,33 @@ class BooksController
         }
     }
 
+    public function updateBook(string $id)
+    {
+
+        if (isset($_POST['submit'])) {
+            try {
+                $request = new BooksListRequest();
+                $request->name = $_POST['name'];
+                $request->genre = $_POST['genre'];
+                $request->releaseDate = $_POST['releaseDate'];
+                $request->authorId = $_POST['authorId'];
+                $request->synopsis = $_POST['synopsis'];
+                $request->pages = $_POST['pages'];
+
+                $success = $this->service->updateById($id, $request);
+                $model['success'] = 'Successfully update book';
+
+                if ($success) {
+                    View::redirect('/books');
+                }
+            } catch (ValidationException $e) {
+                $model['error'] = $e->getMessage();
+                View::redirect('/books');
+                echo 'Error: ' . $e->getMessage();
+            }
+        }
+    }
+
     public function removeBook(string $id)
     {
         $model = [

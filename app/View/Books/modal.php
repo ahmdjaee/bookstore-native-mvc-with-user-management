@@ -11,7 +11,7 @@
     <?php endif; ?>
     <div class="card" style="width: 50vw; height: 90vh; overflow-y: scroll">
         <div class="card-body">
-            <form method="post">
+            <form method="post" id="formBook">
                 <fieldset>
                     <div class="d-flex justify-content-between">
                         <legend>Insert Data Below </legend>
@@ -62,4 +62,3 @@
         </div>
     </div>
 </div>
-

@@ -1,0 +1,29 @@
+.header-wrapper {
+    background-image: url(https://uiii.ac.id/assets/images/1636690539-alfons-morales-YLSwjSy7stw-unsplash-2.jpg);
+    background-color: lightgray;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 95vh;
+}
+
+.header-wrapper .header-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    padding-inline: 10%
+}
+
+.latest-version{
+    margin: 4rem;
+}
+
+.best-seller{
+    margin: 4rem;
+}
+
+.best-seller .best-seller-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, auto));
+    gap: 16px;
+}

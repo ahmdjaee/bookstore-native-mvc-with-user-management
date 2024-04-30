@@ -15,4 +15,9 @@ class HomeController
     {
         View::render('Home/search');
     }
+
+    public function detail()
+    {
+        View::render('Home/detail');
+    }
 }

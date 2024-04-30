@@ -34,6 +34,25 @@ class BookRepository
         return $books;
     }
 
+    public function update(Books $books): Books
+    {
+
+        $sql = "UPDATE books SET name = :name, genre = :genre, release_date = :release_date, author_id = :author_id, synopsis = :synopsis, pages = :pages WHERE id = :id";
+
+        $statement = $this->connection->prepare($sql);
+        $statement->execute([
+            'id' => $books->id,
+            'name' => $books->name,
+            'genre' => $books->genre,
+            'release_date' => $books->releaseDate,
+            'author_id' => $books->authorId,
+            'synopsis' => $books->synopsis,
+            'pages' => $books->pages
+        ]);
+
+        return $books;
+    }
+
     public function getAll(): array
     {
         $sql = "SELECT * FROM books ORDER BY name ASC LIMIT 20";

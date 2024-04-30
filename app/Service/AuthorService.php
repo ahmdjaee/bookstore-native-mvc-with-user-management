@@ -6,6 +6,7 @@ use RootNameSpace\Belajar\PHP\MVC\Domain\Author;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\AuthorRequest;
 use RootNameSpace\Belajar\PHP\MVC\Model\AuthorResponse;
+use RootNameSpace\Belajar\PHP\MVC\Model\BooksListResponse;
 use RootNameSpace\Belajar\PHP\MVC\Repository\AuthorRepository;
 
 class AuthorService
@@ -79,6 +80,31 @@ class AuthorService
             return $author;
         } else {
             throw new ValidationException("Data not found");
+        }
+    }
+
+    public function updateById(int $id, AuthorRequest $request): AuthorResponse
+    {
+        $this->validateAuthorRequest($request);
+        $find = $this->repository->findById($id);
+
+        if (!$find) {
+            throw new ValidationException('Id Not Found');
+        }
+
+        try {
+            $author = new Author(
+                id: $id,
+                name: $request->name,
+                email: $request->email,
+                birthdate: $request->birthdate,
+                placeOfBirth: $request->placeOfBirth
+            );
+
+            $response = $this->repository->update($author);
+            return new AuthorResponse($response);
+        } catch (ValidationException $e) {
+            throw new ValidationException($e->getMessage());
         }
     }
 }

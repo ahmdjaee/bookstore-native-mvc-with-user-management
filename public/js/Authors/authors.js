@@ -8,7 +8,7 @@ function showModal(id) {
 
     const ajax = new XMLHttpRequest();
 
-    ajax.open('GET', `${baseUrl}api/authors/${id}`);
+    ajax.open('GET', `${baseUrl}/api/authors/${id}`);
     ajax.send();
 
     ajax.addEventListener('load', () => {
@@ -20,4 +20,5 @@ function showModal(id) {
         birthdate.value = data.birthdate;
         placeOfBirth.value = data.placeOfBirth;
     })
+    document.getElementById('formAuthor').setAttribute('action', `${baseUrl}/authors/${id}/update`);
 }

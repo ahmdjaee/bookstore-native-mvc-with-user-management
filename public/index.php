@@ -19,6 +19,7 @@ Router::add('GET', '/users/logout', UsersController::class, 'logout',  [MustNotL
 
 Router::add('GET', '/authors', AuthorController::class, 'author', [MustLoginMiddleware::class]);
 Router::add('POST', '/authors', AuthorController::class, 'postAuthor', [MustLoginMiddleware::class]);
+Router::add('POST', '/authors/([0-9a-zA-Z]*)/update', AuthorController::class, 'updateById', [MustLoginMiddleware::class]);
 Router::add('GET', '/authors/([0-9a-zA-Z]*)/delete', AuthorController::class, 'removeAuthor', [MustLoginMiddleware::class]);
 
 Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', [MustLoginMiddleware::class]);
@@ -26,6 +27,7 @@ Router::add('GET', '/dashboard', DashboardController::class, 'dashboard', [MustL
 Router::add('GET', '/books', BooksController::class, 'index', [MustLoginMiddleware::class]);
 Router::add('POST', '/books', BooksController::class, 'postAddBook', [MustLoginMiddleware::class]);
 Router::add('GET', '/books/([0-9a-zA-Z]*)/delete', BooksController::class, 'removeBook', [MustLoginMiddleware::class]);
+Router::add('POST', '/books/([0-9a-zA-Z]*)/update', BooksController::class, 'updateBook', [MustLoginMiddleware::class]);
 
 // Get Book Detail Api
 Router::add('GET', '/api/books/([0-9a-zA-Z]*)', BooksController::class, 'getById');
@@ -34,5 +36,6 @@ Router::add('GET', '/api/authors/([0-9a-zA-Z]*)', AuthorController::class, 'getB
 
 Router::add('GET', '/', HomeController::class, 'home');
 Router::add('GET', '/search', HomeController::class, 'search');
+Router::add('GET', '/([0-9a-zA-Z]*)', HomeController::class, 'detail');
 
 Router::run();
