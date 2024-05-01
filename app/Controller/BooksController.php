@@ -2,37 +2,35 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
-use JsonSerializable;
-use RootNameSpace\Belajar\PHP\MVC\App\Router;
+use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
-use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\BooksListRequest;
-use RootNameSpace\Belajar\PHP\MVC\Repository\AuthorRepository;
-use RootNameSpace\Belajar\PHP\MVC\Repository\BookRepository;
-use RootNameSpace\Belajar\PHP\MVC\Repository\SessionRepository;
-use RootNameSpace\Belajar\PHP\MVC\Repository\UserRepository;
-use RootNameSpace\Belajar\PHP\MVC\Resource\BookResource;
 use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 use RootNameSpace\Belajar\PHP\MVC\Service\BookService;
 use RootNameSpace\Belajar\PHP\MVC\Service\SessionService;
 
 class BooksController
 {
-    private $service;
+    private BookService $service;
     private SessionService $sessionService;
     private AuthorService $authorService;
     function __construct()
     {
-        $connection = Database::getConnection();
-        $repository = new BookRepository($connection);
-        $sessionRepository = new SessionRepository($connection);
-        $userRepository = new UserRepository($connection);
-        $authorRepository = new AuthorRepository($connection);
+        // $connection = Database::getConnection();
+        // $repository = new BookRepository($connection);
+        // $sessionRepository = new SessionRepository($connection);
+        // $userRepository = new UserRepository($connection);
+        // $authorRepository = new AuthorRepository($connection);
 
-        $this->service = new BookService($repository);
-        $this->sessionService = new SessionService($sessionRepository, $userRepository);
-        $this->authorService = new AuthorService($authorRepository);
+        // $this->service = new BookService($repository);
+        // $this->sessionService = new SessionService($sessionRepository, $userRepository);
+        // $this->authorService = new AuthorService($authorRepository);
+
+        $container = new Container();
+        $this->service = $container->get(BookService::class);
+        $this->sessionService = $container->get(SessionService::class);
+        $this->authorService = $container->get(AuthorService::class);
     }
     public function index()
     {

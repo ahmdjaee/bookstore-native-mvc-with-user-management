@@ -4,17 +4,20 @@ namespace RootNameSpace\Belajar\PHP\MVC\Repository;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+use PDO;
+use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Domain\Users;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 
 class UserRepository
 {
-    private \PDO $connection;
+    private PDO $connection;
 
-    public function __construct(\PDO $connection)
+    public function __construct(Database $database)
     {
-        $this->connection = $connection;
+        $this->connection = $database->getConnection();
     }
+
 
 
     public function save(Users $users): Users

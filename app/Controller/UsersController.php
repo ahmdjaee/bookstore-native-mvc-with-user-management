@@ -2,6 +2,7 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
+use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
 use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Service\UserService;
@@ -20,13 +21,17 @@ class UsersController
 
     public function __construct()
     {
-        $connection = Database::getConnection();
-        $repository = new UserRepository($connection);
-        $sessionRepository = new SessionRepository($connection);
-        $userRepository = new UserRepository($connection);
+        // $connection = Database::getConnection();
+        // $repository = new UserRepository($connection);
+        // $sessionRepository = new SessionRepository($connection);
+        // $userRepository = new UserRepository($connection);
 
-        $this->service = new UserService($repository);
-        $this->sessionService = new SessionService($sessionRepository, $userRepository);
+        // $this->service = new UserService($repository);
+        // $this->sessionService = new SessionService($sessionRepository, $userRepository);
+
+        $container = new Container();
+        $this->service = $container->get(UserService::class);
+        $this->sessionService = $container->get(SessionService::class);
     }
     public function register()
     {
@@ -85,7 +90,8 @@ class UsersController
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         $this->sessionService->destroy();
         View::redirect('/users/login');
     }

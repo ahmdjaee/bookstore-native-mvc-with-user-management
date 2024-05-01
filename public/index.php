@@ -36,6 +36,6 @@ Router::add('GET', '/api/authors/([0-9a-zA-Z]*)', AuthorController::class, 'getB
 
 Router::add('GET', '/', HomeController::class, 'home');
 Router::add('GET', '/search', HomeController::class, 'search');
-Router::add('GET', '/([0-9a-zA-Z]*)', HomeController::class, 'detail');
+Router::add('GET', '/detail/([0-9a-zA-Z]*)', HomeController::class, 'detail');
 
 Router::run();

@@ -29,9 +29,9 @@
 
 <section class="best-seller">
     <h2>Best Seller</h2>
-    <div class="best-seller-content">
+    <div class="books-grid">
         <?php for ($i = 0; $i < 10; $i++) : ?>
-            <div onclick="location.href='/1'" class="d-flex bg-white border"  style="width: auto; cursor: pointer">
+            <div onclick="location.href='/detail/1'" class="d-flex bg-white border" style="width: auto; cursor: pointer">
                 <img style="height: 250px; object-fit: cover" src="https://marketplace.canva.com/EAFFDGFkcdM/1/0/1003w/canva-hijau-biru-sederhana-ruang-sunyi-sampul-buku-novel-K3WxwPzlPyk.jpg" class="card-img" alt="...">
                 <div class="p-2">
                     <h5 class="card-title text-truncate my-2" style="font-weight: 600;">Card title</h5>
