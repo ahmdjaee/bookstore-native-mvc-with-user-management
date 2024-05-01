@@ -13,14 +13,10 @@ use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 
 class AuthorController
 {
-    // private AuthorRepository $repository;
     private AuthorService $service;
 
     public function __construct()
     {
-        // $this->repository = new AuthorRepository(Database::getConnection());
-        // $this->service = new AuthorService($this->repository);
-
         $container = new Container();
         $this->service = $container->get(AuthorService::class);
     }

@@ -17,16 +17,6 @@ class BooksController
     private AuthorService $authorService;
     function __construct()
     {
-        // $connection = Database::getConnection();
-        // $repository = new BookRepository($connection);
-        // $sessionRepository = new SessionRepository($connection);
-        // $userRepository = new UserRepository($connection);
-        // $authorRepository = new AuthorRepository($connection);
-
-        // $this->service = new BookService($repository);
-        // $this->sessionService = new SessionService($sessionRepository, $userRepository);
-        // $this->authorService = new AuthorService($authorRepository);
-
         $container = new Container();
         $this->service = $container->get(BookService::class);
         $this->sessionService = $container->get(SessionService::class);

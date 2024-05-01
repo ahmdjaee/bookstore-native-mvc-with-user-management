@@ -4,13 +4,10 @@ namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
 use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
-use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Service\UserService;
-use RootNameSpace\Belajar\PHP\MVC\Repository\UserRepository;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\UsersLoginRequest;
 use RootNameSpace\Belajar\PHP\MVC\Model\UsersRegisterRequest;
-use RootNameSpace\Belajar\PHP\MVC\Repository\SessionRepository;
 use RootNameSpace\Belajar\PHP\MVC\Service\SessionService;
 
 class UsersController
@@ -21,14 +18,6 @@ class UsersController
 
     public function __construct()
     {
-        // $connection = Database::getConnection();
-        // $repository = new UserRepository($connection);
-        // $sessionRepository = new SessionRepository($connection);
-        // $userRepository = new UserRepository($connection);
-
-        // $this->service = new UserService($repository);
-        // $this->sessionService = new SessionService($sessionRepository, $userRepository);
-
         $container = new Container();
         $this->service = $container->get(UserService::class);
         $this->sessionService = $container->get(SessionService::class);

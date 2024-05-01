@@ -18,13 +18,6 @@ class DashboardController
 
     public function __construct()
     {
-        // $connection = Database::getConnection();
-        // $bookRepository = new BookRepository($connection);
-        // $authorRepository = new AuthorRepository($connection);
-
-        // $this->bookService = new BookService($bookRepository);
-        // $this->authorService = new AuthorService($authorRepository);
-
         $container = new Container();
         $this->bookService = $container->get(BookService::class);
     }
