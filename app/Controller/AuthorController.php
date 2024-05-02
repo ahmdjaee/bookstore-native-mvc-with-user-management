@@ -13,12 +13,9 @@ use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 
 class AuthorController
 {
-    private AuthorService $service;
 
-    public function __construct()
+    public function __construct(protected AuthorService $service)
     {
-        $container = new Container();
-        $this->service = $container->get(AuthorService::class);
     }
     public function author()
     {

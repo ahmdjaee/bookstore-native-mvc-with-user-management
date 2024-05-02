@@ -12,15 +12,10 @@ use RootNameSpace\Belajar\PHP\MVC\Service\SessionService;
 
 class UsersController
 {
-
-    private UserService $service;
-    private SessionService $sessionService;
-
-    public function __construct()
-    {
-        $container = new Container();
-        $this->service = $container->get(UserService::class);
-        $this->sessionService = $container->get(SessionService::class);
+    public function __construct(
+        protected UserService $service,
+        protected SessionService $sessionService
+    ) {
     }
     public function register()
     {

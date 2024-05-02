@@ -8,13 +8,8 @@ use RootNameSpace\Belajar\PHP\MVC\Service\BookService;
 
 class HomeController
 {
-    private Container $container;
-    private BookService $bookService;
-
-    public function __construct()
+    public function __construct(protected BookService $bookService)
     {
-        $this->container = new Container();
-        $this->bookService = $this->container->get(BookService::class);
     }
     public function home()
     {

@@ -12,15 +12,12 @@ use RootNameSpace\Belajar\PHP\MVC\Service\SessionService;
 
 class BooksController
 {
-    private BookService $service;
-    private SessionService $sessionService;
-    private AuthorService $authorService;
-    function __construct()
-    {
-        $container = new Container();
-        $this->service = $container->get(BookService::class);
-        $this->sessionService = $container->get(SessionService::class);
-        $this->authorService = $container->get(AuthorService::class);
+
+    function __construct(
+        protected BookService $service,
+        protected SessionService $sessionService,
+        protected AuthorService $authorService,
+    ) {
     }
     public function index()
     {

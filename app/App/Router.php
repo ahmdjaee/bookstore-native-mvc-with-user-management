@@ -2,18 +2,19 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\App;
 
+use DI\Container;
+
 class Router
 {
 
     private static array $routes = [];
 
-    public static function add(string $method, string $path, string $controller, string $function, array $middlewares = []): void
+    public static function add(string $method, string $path, array $handler, array $middlewares = []): void
     {
         self::$routes[] = [
             'method' => $method,
             'path' => $path,
-            'controller' => $controller,
-            'function' => $function,
+            'handler' => $handler,
             'middleware' => $middlewares
         ];
     }
@@ -23,23 +24,18 @@ class Router
         $path = $_SERVER['PATH_INFO'] ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];
 
+        $container = new Container();
+
         foreach (self::$routes as $route) {
             $pattern = "#^" . $route['path'] . "$#";
             if (preg_match($pattern, $path, $variables) && $method == $route['method']) {
 
                 // call middleware
                 foreach ($route['middleware'] as $middleware) {
-                    $instance = new $middleware;
-                    $instance->before();
+                    $container->get($middleware)->before();
                 }
-
-                $controller = new $route['controller'];
-                $function = $route['function'];
-
-                // $controller->$function();
-
                 array_shift($variables);
-                call_user_func_array([$controller, $function], $variables);
+                $container->call($route['handler'], $variables);
                 return;
             }
         }

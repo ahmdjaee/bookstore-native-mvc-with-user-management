@@ -13,13 +13,8 @@ use RootNameSpace\Belajar\PHP\MVC\Service\BookService;
 
 class DashboardController
 {
-    private BookService $bookService;
-    private AuthorService $authorService;
-
-    public function __construct()
+    public function __construct(protected BookService $bookService)
     {
-        $container = new Container();
-        $this->bookService = $container->get(BookService::class);
     }
 
     public function dashboard()
