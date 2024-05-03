@@ -2,7 +2,6 @@
 
 <link rel="stylesheet" href="style/home/home.css">
 
-
 <div class="d-flex mt-5 gap-3" style="margin-inline: 10%;">
     <aside>
         <div class="card" style="height: 80vh; width: 250px;"></div>
