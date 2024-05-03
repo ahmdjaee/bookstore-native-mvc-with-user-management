@@ -2,28 +2,20 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
-use Nyholm\Psr7\Response;
-use PHPUnit\Util\Json;
+use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
 use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\AuthorRequest;
 use RootNameSpace\Belajar\PHP\MVC\Repository\AuthorRepository;
-use RootNameSpace\Belajar\PHP\MVC\Resource\AuthorResource;
 use RootNameSpace\Belajar\PHP\MVC\Resource\JsonResource;
 use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 
 class AuthorController
 {
-    private AuthorRepository $repository;
-    private AuthorService $service;
-    private JsonResource $resource;
 
-    public function __construct()
+    public function __construct(protected AuthorService $service)
     {
-        $this->repository = new AuthorRepository(Database::getConnection());
-        $this->service = new AuthorService($this->repository);
-        $this->resource = new JsonResource();
     }
     public function author()
     {

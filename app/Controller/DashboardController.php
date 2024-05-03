@@ -2,6 +2,7 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
+use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
 use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
@@ -12,18 +13,8 @@ use RootNameSpace\Belajar\PHP\MVC\Service\BookService;
 
 class DashboardController
 {
-
-    private BookService $bookService;
-    private AuthorService $authorService;
-
-    public function __construct()
+    public function __construct(protected BookService $bookService)
     {
-        $connection = Database::getConnection();
-        $bookRepository = new BookRepository($connection);
-        $authorRepository = new AuthorRepository($connection);
-
-        $this->bookService = new BookService($bookRepository);
-        $this->authorService = new AuthorService($authorRepository);
     }
 
     public function dashboard()

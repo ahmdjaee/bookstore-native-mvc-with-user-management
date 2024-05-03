@@ -2,31 +2,20 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
+use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
-use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Service\UserService;
-use RootNameSpace\Belajar\PHP\MVC\Repository\UserRepository;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\UsersLoginRequest;
 use RootNameSpace\Belajar\PHP\MVC\Model\UsersRegisterRequest;
-use RootNameSpace\Belajar\PHP\MVC\Repository\SessionRepository;
 use RootNameSpace\Belajar\PHP\MVC\Service\SessionService;
 
 class UsersController
 {
-
-    private UserService $service;
-    private SessionService $sessionService;
-
-    public function __construct()
-    {
-        $connection = Database::getConnection();
-        $repository = new UserRepository($connection);
-        $sessionRepository = new SessionRepository($connection);
-        $userRepository = new UserRepository($connection);
-
-        $this->service = new UserService($repository);
-        $this->sessionService = new SessionService($sessionRepository, $userRepository);
+    public function __construct(
+        protected UserService $service,
+        protected SessionService $sessionService
+    ) {
     }
     public function register()
     {
@@ -85,7 +74,8 @@ class UsersController
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         $this->sessionService->destroy();
         View::redirect('/users/login');
     }
