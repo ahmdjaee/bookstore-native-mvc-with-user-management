@@ -2,9 +2,7 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
-use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
-use RootNameSpace\Belajar\PHP\MVC\Domain\Publisher;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\BooksListRequest;
 use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
@@ -58,18 +56,18 @@ class BooksController
 
         if (isset($_POST['submit'])) {
             try {
-                $request = new BooksListRequest();
-                $request->name = $_POST['name'];
-                $request->image = $_POST['image'];
-                $request->genreId = $_POST['genreId'];
-                $request->releaseDate = $_POST['releaseDate'];
-                $request->authorId = $_POST['authorId'];
-                $request->synopsis = $_POST['synopsis'];
-                $request->pages = $_POST['pages'];
-                $request->publisherId = $_POST['publisherId'];
-                $request->price = $_POST['price'];
-                $request->stock = $_POST['stock'];
-
+                $request = new BooksListRequest(
+                    name: $_POST['name'],
+                    image: $_POST['image'],
+                    genreId: $_POST['genreId'],
+                    releaseDate: $_POST['releaseDate'],
+                    authorId: $_POST['authorId'],
+                    synopsis: $_POST['synopsis'],
+                    pages: $_POST['pages'],
+                    publisherId: $_POST['publisherId'],
+                    price: $_POST['price'],
+                    stock: $_POST['stock'],
+                );
                 $success = $this->bookService->add($request);
                 $model['success'] = 'Successfully added a new book';
 
@@ -88,14 +86,18 @@ class BooksController
 
         if (isset($_POST['submit'])) {
             try {
-                $request = new BooksListRequest();
-                $request->name = $_POST['name'];
-                $request->genreId = $_POST['genreId'];
-                $request->releaseDate = $_POST['releaseDate'];
-                $request->authorId = $_POST['authorId'];
-                $request->synopsis = $_POST['synopsis'];
-                $request->pages = $_POST['pages'];
-
+                $request = new BooksListRequest(
+                    name: $_POST['name'],
+                    image: $_POST['image'],
+                    genreId: $_POST['genreId'],
+                    releaseDate: $_POST['releaseDate'],
+                    authorId: $_POST['authorId'],
+                    synopsis: $_POST['synopsis'],
+                    pages: $_POST['pages'],
+                    publisherId: $_POST['publisherId'],
+                    price: $_POST['price'],
+                    stock: $_POST['stock'],
+                );
                 $success = $this->bookService->updateById($id, $request);
                 $model['success'] = 'Successfully update book';
 

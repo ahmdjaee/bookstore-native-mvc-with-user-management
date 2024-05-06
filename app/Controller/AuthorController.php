@@ -2,12 +2,9 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
-use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
-use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\AuthorRequest;
-use RootNameSpace\Belajar\PHP\MVC\Repository\AuthorRepository;
 use RootNameSpace\Belajar\PHP\MVC\Resource\JsonResource;
 use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 

@@ -28,7 +28,7 @@ function showModal(id) {
         author.value = data.author.id;
         synopsis.value = data.synopsis;
         releaseDate.value = data.releaseDate;
-        publisherId.value = data.publisher.id;
+        publisherId.value = data.publisherId;
         price.value = data.price;
         stock.value = data.stock;
     })

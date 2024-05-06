@@ -1,5 +1,7 @@
-<?php include __DIR__ . './../sidebar.php' ?>
-<?php include __DIR__ . './modal.php' ?>
+<?php 
+    include __DIR__ . './../sidebar.php';
+    include __DIR__ . './modal.php';
+?>
 
 <main id="container" class="d-flex flex-column align-items-center" style="margin-left: 250px; transition: 0.5s; height: 100%">
     <?php if (isset($model['error'])) : ?>
@@ -52,7 +54,7 @@
                                 <td><?= $book->authorId ?></td>
                                 <td><?= $book->pages ?></td>
                                 <td><?= $book->publisherId ?></td>
-                                <td style="font-weight: 600 ;"><?= "Rp. " . $book->price ?></td>
+                                <td style="font-weight: 600 ;"><?= "Rp. " . number_format($book->price) ?></td>
                                 <td><?= $book->stock == 0 ? "Out of Stock" : $book->stock . " pcs" ?></td>
                                 <td>
                                     <button type="button" id="bookId" onclick="showModal(<?= $book->id ?>)" class="btn btn-sm"><i class="fas fa-pencil-alt co--primary"></i></button>
@@ -63,8 +65,8 @@
                             </tr>
                         <?php endforeach ?>
                     <?php else : ?>
-                        <td colspan="6" rowspan="4" style="text-align: center;">
-                            <span><?= $model['booksError'] ?? null ?></span>
+                        <td colspan="11" rowspan="4" style="text-align: center;">
+                            <span>No Data Found</span>
                         </td>
                     <?php endif; ?>
                 </tbody>

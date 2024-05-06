@@ -21,7 +21,7 @@ class BookRepository
     public function save(Books $books): Books
     {
 
-        $sql = "INSERT INTO books VALUES (:id, :name, :image, :genre_id, :release_date, :author_id, :synopsis , :pages, :publisher_id, :price, :stock)";
+        $sql = "INSERT INTO books VALUES (:id, :name, :image, :genre_id, :release_date, :author_id, :pages, :synopsis ,  :publisher_id, :price, :stock)";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute([
@@ -44,17 +44,21 @@ class BookRepository
     public function update(Books $books): Books
     {
 
-        $sql = "UPDATE books SET name = :name, genre_id = :genre_id, release_date = :release_date, author_id = :author_id, synopsis = :synopsis, pages = :pages WHERE id = :id";
+        $sql = "UPDATE books SET name = :name, image = :image, genre_id = :genre_id, release_date = :release_date, author_id = :author_id, synopsis = :synopsis, pages = :pages , publisher_id = :publisher_id, price = :price, stock = :stock WHERE id = :id";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute([
             'id' => $books->id,
             'name' => $books->name,
+            'image' => $books->image,
             'genre_id' => $books->genreId,
             'release_date' => $books->releaseDate,
             'author_id' => $books->authorId,
             'synopsis' => $books->synopsis,
-            'pages' => $books->pages
+            'pages' => $books->pages,
+            'publisher_id' => $books->publisherId,
+            'price' => $books->price,
+            'stock' => $books->stock
         ]);
 
         return $books;

@@ -38,7 +38,7 @@ class BookService
             $this->repository->save($books);
             $response = new BooksListResponse();
             $response->books = $books;
-            
+
             return $response;
         } catch (\Exception $e) {
             throw new ValidationException($e->getMessage());
@@ -69,7 +69,7 @@ class BookService
         if ($result) {
             return $result;
         } else {
-            throw new ValidationException('No records Found');
+            return null;
         }
     }
 
@@ -79,7 +79,7 @@ class BookService
 
         if ($find) {
             $this->repository->remove($id);
-        } else {
+        }{
             throw new ValidationException('Id Not Found');
         }
     }
@@ -105,15 +105,19 @@ class BookService
         }
 
         try {
-            $books = new Books();
-
-            $books->id = $id;
-            $books->name = $request->name;
-            $books->genreId = $request->genreId;
-            $books->releaseDate = $request->releaseDate;
-            $books->authorId = $request->authorId;
-            $books->synopsis = $request->synopsis;
-            $books->pages = $request->pages;
+            $books = new Books(
+                id: $id,
+                name: $request->name,
+                image: $request->image,
+                genreId: $request->genreId,
+                releaseDate: $request->releaseDate,
+                authorId: $request->authorId,
+                synopsis: $request->synopsis,
+                pages: $request->pages,
+                publisherId: $request->publisherId,
+                price: $request->price,
+                stock: $request->stock
+            );
 
             $this->repository->update($books);
 
