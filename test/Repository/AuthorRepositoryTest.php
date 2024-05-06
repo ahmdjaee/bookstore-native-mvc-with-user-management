@@ -11,7 +11,8 @@ class AuthorRepositoryTest extends TestCase
     private AuthorRepository $repository;
     protected function setUp(): void
     {
-        $this->repository = new AuthorRepository(Database::getConnection());
+        $database = new Database();
+        $this->repository = new AuthorRepository($database);
         // $this->repository->removeAll();
     }
 
@@ -32,7 +33,7 @@ class AuthorRepositoryTest extends TestCase
 
     public function testGetAllSuccess()
     {
-        $result = $this->repository->getAll(1, 10);
+        $result = $this->repository->findAll(1, 10);
 
         $this->assertNotNull($result);
     }

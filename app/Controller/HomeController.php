@@ -4,6 +4,7 @@ namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
 use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
+use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Service\BookService;
 
 class HomeController
@@ -18,8 +19,14 @@ class HomeController
 
     public function search()
     {
-        $books = $this->bookService->search();
-        $model = ['books' => $books];
+        $model = [];
+        try {
+            $search = $_GET['search'] ?? '';
+            $books =  $this->bookService->search($search);
+            $model['books'] = $books;
+        } catch (ValidationException $e) {
+            $model['booksError'] = $e->getMessage();
+        }
         View::render('Home/search', $model);
     }
 

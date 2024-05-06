@@ -2,7 +2,6 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
-use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
 use RootNameSpace\Belajar\PHP\MVC\Service\UserService;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
@@ -22,7 +21,7 @@ class UsersController
         $model = [
             'title' => 'Register',
         ];
-        View::render('Users/register', model: $model, navbar: false);
+        View::render('Users/register', model: $model);
     }
 
     public function postRegister()
@@ -44,7 +43,7 @@ class UsersController
             }
         } catch (ValidationException $exception) {
             $model['error'] = $exception->getMessage();
-            View::render('Users/register', model: $model, navbar: false);
+            View::render('Users/register', model: $model);
         }
     }
 
@@ -53,7 +52,7 @@ class UsersController
         $model = [
             'title' => 'Login',
         ];
-        View::render('Users/login', model: $model, navbar: false);
+        View::render('Users/login', model: $model);
     }
 
     public function postLogin()

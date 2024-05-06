@@ -3,8 +3,10 @@
 use RootNameSpace\Belajar\PHP\MVC\App\Router;
 use RootNameSpace\Belajar\PHP\MVC\Controller\AuthorController;
 use RootNameSpace\Belajar\PHP\MVC\Controller\BooksController;
+use RootNameSpace\Belajar\PHP\MVC\Controller\GenresController;
 use RootNameSpace\Belajar\PHP\MVC\Controller\DashboardController;
 use RootNameSpace\Belajar\PHP\MVC\Controller\HomeController;
+use RootNameSpace\Belajar\PHP\MVC\Controller\PublisherController;
 use RootNameSpace\Belajar\PHP\MVC\Controller\UsersController;
 use RootNameSpace\Belajar\PHP\MVC\Middleware\MustLoginMiddleware;
 use RootNameSpace\Belajar\PHP\MVC\Middleware\MustNotLoginMiddleware;
@@ -37,5 +39,16 @@ Router::add('GET', '/api/authors/([0-9a-zA-Z]*)', [AuthorController::class, 'get
 Router::add('GET', '/', [HomeController::class, 'home']);
 Router::add('GET', '/search', [HomeController::class, 'search']);
 Router::add('GET', '/detail/([0-9a-zA-Z]*)', [HomeController::class, 'detail']);
+
+Router::add('GET', '/publishers', [PublisherController::class, 'main'], [MustLoginMiddleware::class]);
+Router::add('POST', '/publishers', [PublisherController::class, 'add'], [MustLoginMiddleware::class]);
+Router::add('POST', '/publishers/([0-9a-zA-Z]*)/update', [PublisherController::class, 'update'], [MustLoginMiddleware::class]);
+Router::add('GET', '/publishers/([0-9a-zA-Z]*)/delete', [PublisherController::class, 'delete'], [MustLoginMiddleware::class]);
+
+Router::add('GET', '/genres', [GenresController::class, 'main'], [MustLoginMiddleware::class]);
+Router::add('POST', '/genres', [GenresController::class, 'add'], [MustLoginMiddleware::class]);
+Router::add('POST', '/genres/([0-9a-zA-Z]*)/update', [GenresController::class, 'update'], [MustLoginMiddleware::class]);
+Router::add('GET', '/genres/([0-9a-zA-Z]*)/delete', [GenresController::class, 'delete'], [MustLoginMiddleware::class]);
+
 
 Router::run();

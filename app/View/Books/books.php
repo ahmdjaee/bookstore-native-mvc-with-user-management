@@ -8,8 +8,10 @@
         </div>
     <?php endif; ?>
     <div class="card p-3 pt-2 text-center border-0 " style="width: 95%; height: min-content; <?php echo (!isset($model['error']))  ? 'top: 24px;' : 'top: 0px;' ?> box-shadow: 0 0 4px 0 var(--shadow);">
-        <header class=" w-100 d-flex justify-content-between p-3 ">
-            <h5 class="co--primary"><b>Books</b></h5>
+        <header class=" w-100 d-flex justify-content-between py-3 ">
+            <div class="p-1 rounded w-50 text-start" style="background-image: url(<?= BASE_URL . '/assets/bg-header-table.png' ?>); background-repeat: no-repeat; background-size: cover">
+                <h5 class="co--primary d-inline-block bg-white py-2 px-3 m-0 rounded" style="font-weight: 600 ;">Books</h5>
+            </div>
             <ul class="nav nav-pills card-header-pills d-flex gap-3">
                 <li class="nav-item">
                     <button type="button" class="btn btn-primary" id="openModal"> <i class="fa-solid fa-plus"></i></button>
@@ -28,10 +30,13 @@
                         <th scope="col">Name</th>
                         <th scope="col">Cover</th>
                         <th scope="col">Synopsis</th>
-                        <th scope="col">Genre</th>
+                        <th scope="col">Genre Id</th>
                         <th scope="col">Release Date</th>
                         <th scope="col">Author Id</th>
                         <th scope="col">Pages</th>
+                        <th scope="col">Publisher Id</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Stock</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -40,12 +45,15 @@
                         <?php foreach ($model['books'] as $key => $book) : ?>
                             <tr valign="middle">
                                 <td><?= $book->name ?></td>
-                                <td scope="row"><img class="rounded-1" src="https://marketplace.canva.com/EAFFDGFkcdM/1/0/1003w/canva-hijau-biru-sederhana-ruang-sunyi-sampul-buku-novel-K3WxwPzlPyk.jpg" style="width: 50px; height: 50px;"></td>
+                                <td scope="row"><img class="rounded-1" src=<?= $book->image ?> style="width: 50px; height: 50px;"></td>
                                 <td class="text-truncate" style="max-width: 220px; max-lines: 2;"><?= $book->synopsis ?></td>
-                                <td><?= $book->genre ?></td>
+                                <td><?= $book->genreId ?></td>
                                 <td><?= $book->releaseDate ?></td>
                                 <td><?= $book->authorId ?></td>
                                 <td><?= $book->pages ?></td>
+                                <td><?= $book->publisherId ?></td>
+                                <td style="font-weight: 600 ;"><?= "Rp. " . $book->price ?></td>
+                                <td><?= $book->stock == 0 ? "Out of Stock" : $book->stock . " pcs" ?></td>
                                 <td>
                                     <button type="button" id="bookId" onclick="showModal(<?= $book->id ?>)" class="btn btn-sm"><i class="fas fa-pencil-alt co--primary"></i></button>
                                     <form action="/books/<?= $book->id ?>/delete" style="display:inline;">

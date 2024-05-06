@@ -9,8 +9,10 @@
     <?php endif; ?>
 
     <div class="card p-3 pt-2 text-center border-0 " style="width: 95%; height: min-content; <?php echo (!isset($model['error']))  ? 'top: 24px;' : 'top: 0px;' ?> box-shadow: 0 0 4px 0 var(--shadow);">
-        <header class=" w-100 d-flex justify-content-between p-3">
-            <h5 class="co--primary"><b>Author</b></h5>
+        <header class=" w-100 d-flex justify-content-between py-3">
+        <div class="p-1 rounded w-50 text-start" style="background-image: url(<?= BASE_URL . '/assets/bg-header-table.png'?>); background-repeat: no-repeat; background-size: cover">
+                <h5 class="co--primary d-inline-block bg-white py-2 px-3 m-0 rounded" style="font-weight: 600 ;">Authors</h5>
+            </div>
             <ul class="nav nav-pills card-header-pills d-flex gap-3">
                 <li class="nav-item">
                     <button type="button" class="btn btn-primary" id="openModal"> <i class="fa-solid fa-plus"></i></button>
@@ -28,7 +30,6 @@
             <table class="table">
                 <thead class="text-start position-sticky top-0">
                     <tr>
-                        <th scope="col" class="text-center">No</th>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Birth Date</th>
@@ -40,7 +41,6 @@
                     <?php if (isset($model['data'])) : ?>
                         <?php foreach ($model['data'] as $key => $data) : ?>
                             <tr>
-                                <td scope="row" class="text-center"><?= $key + 1 ?></td>
                                 <td><?= $data->name ?></td>
                                 <td><?= $data->email ?></td>
                                 <td><?= $data->birthdate ?></td>

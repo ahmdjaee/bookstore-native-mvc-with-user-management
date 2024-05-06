@@ -21,17 +21,21 @@ class BookRepository
     public function save(Books $books): Books
     {
 
-        $sql = "INSERT INTO books (id, name, genre, release_date, author_id, synopsis , pages) VALUES (:id, :name, :genre, :release_date, :author_id, :synopsis , :pages)";
+        $sql = "INSERT INTO books VALUES (:id, :name, :image, :genre_id, :release_date, :author_id, :synopsis , :pages, :publisher_id, :price, :stock)";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute([
             'id' => $books->id,
             'name' => $books->name,
-            'genre' => $books->genre,
+            'image' => $books->image,
+            'genre_id' => $books->genreId,
             'release_date' => $books->releaseDate,
             'author_id' => $books->authorId,
             'synopsis' => $books->synopsis,
-            'pages' => $books->pages
+            'pages' => $books->pages,
+            'publisher_id' => $books->publisherId,
+            'price' => $books->price,
+            'stock' => $books->stock
         ]);
 
         return $books;
@@ -40,13 +44,13 @@ class BookRepository
     public function update(Books $books): Books
     {
 
-        $sql = "UPDATE books SET name = :name, genre = :genre, release_date = :release_date, author_id = :author_id, synopsis = :synopsis, pages = :pages WHERE id = :id";
+        $sql = "UPDATE books SET name = :name, genre_id = :genre_id, release_date = :release_date, author_id = :author_id, synopsis = :synopsis, pages = :pages WHERE id = :id";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute([
             'id' => $books->id,
             'name' => $books->name,
-            'genre' => $books->genre,
+            'genre_id' => $books->genreId,
             'release_date' => $books->releaseDate,
             'author_id' => $books->authorId,
             'synopsis' => $books->synopsis,
@@ -67,7 +71,7 @@ class BookRepository
             $array[] = new Books(
                 id: $row['id'],
                 name: $row['name'],
-                genre: $row['genre'],
+                genreId: $row['genre_id'],
                 releaseDate: $row['release_date'],
                 authorId: $row['author_id'],
                 synopsis: $row['synopsis'],
@@ -89,11 +93,15 @@ class BookRepository
                 return new Books(
                     id: $row['id'],
                     name: $row['name'],
-                    genre: $row['genre'],
+                    image: $row['image'],
+                    genreId: $row['genre_id'],
                     releaseDate: $row['release_date'],
                     authorId: $row['author_id'],
                     synopsis: $row['synopsis'],
-                    pages: $row['pages']
+                    pages: $row['pages'],
+                    publisherId: $row['publisher_id'],
+                    price: $row['price'],
+                    stock: $row['stock']
                 );
             } else {
                 return null;
@@ -121,13 +129,9 @@ class BookRepository
 
     public function search(string $keyword = "", int $page = 1, int $limit = 15): array
     {
-
-        // $page = 1;
-        // $limit = 6;
-        // $perPage = $limit / $page;
         $offset = ($page - 1) * $limit;
 
-        $sql = "SELECT * FROM books Where name LIKE ? OR genre LIKE ? OR author_id LIKE ? ORDER BY id DESC LIMIT $limit OFFSET $offset";
+        $sql = "SELECT * FROM books Where name LIKE ? OR genre_id LIKE ? OR author_id LIKE ? ORDER BY id DESC LIMIT $limit OFFSET $offset";
         $statement = $this->connection->prepare($sql);
 
         $statement->execute(['%' . $keyword . '%', '%' . $keyword . '%', '%' . $keyword . '%']);
@@ -138,11 +142,15 @@ class BookRepository
             $array[] = new Books(
                 id: $row['id'],
                 name: $row['name'],
-                genre: $row['genre'],
+                image: $row['image'],
+                genreId: $row['genre_id'],
                 releaseDate: $row['release_date'],
                 authorId: $row['author_id'],
                 synopsis: $row['synopsis'],
-                pages: $row['pages']
+                pages: $row['pages'],
+                publisherId: $row['publisher_id'],
+                price: $row['price'],
+                stock: $row['stock']
             );
         }
 

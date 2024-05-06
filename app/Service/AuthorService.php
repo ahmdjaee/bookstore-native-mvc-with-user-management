@@ -18,9 +18,9 @@ class AuthorService
         $this->repository = $repository;
     }
 
-    public function showAll(int $page = 1, int $limit = 50): array
+    public function findAll(int $page = 1, int $limit = 50): array
     {
-        $authors = $this->repository->getAll($page, $limit);
+        $authors = $this->repository->findAll($page, $limit);
 
         if ($authors != null) {
             return $authors;

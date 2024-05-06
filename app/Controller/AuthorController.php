@@ -24,7 +24,7 @@ class AuthorController
         ];
 
         try {
-            $data = $this->service->showAll();
+            $data = $this->service->findAll();
             $model['data'] = $data;
 
             View::render('Authors/authors', $model);
@@ -64,7 +64,7 @@ class AuthorController
         try {
             $search = $_GET['search'] ?? '';
             $this->service->removeById($id);
-            $books = $this->service->showAll();
+            $books = $this->service->findAll();
             $model['authors'] = $books;
             View::redirect('/authors', $model);
         } catch (ValidationException $e) {

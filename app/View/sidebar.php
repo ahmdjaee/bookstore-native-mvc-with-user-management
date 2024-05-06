@@ -8,10 +8,12 @@
             <h4 class=" p-0 m-0 co--white ">Book Store</h4>
         </a>
     </div>
-    <a href="/dashboard" <?= $_SERVER['REQUEST_URI'] == '/dashboard' ? 'class="activeLink"' : '' ?>><i class="fa-solid fa-home "></i><span class="fs-6" id="sidebarItem">Dashboard</span></a>
-    <a href="/authors" <?= $_SERVER['REQUEST_URI'] == '/authors' ? 'class="activeLink"' : '' ?>><i class="fa-solid fa-user "></i><span class="fs-6" id="sidebarItem">Author</span></a>
-    <a href="/books" <?= $_SERVER['REQUEST_URI'] == '/books' ? 'class="activeLink"' : '' ?>><i class="fa-solid fa-book"></i><span class="fs-6" id="sidebarItem">Books</span></a>
-    <a href="#"><i class="fa-solid fa-address-book  "></i><span class="fs-6" id="sidebarItem">Contact</span></a>
+    <a href="/dashboard" class=<?= str_contains($_SERVER['REQUEST_URI'], 'dashboard') ? "activeLink" : '' ?>><i class="fa-solid fa-home "></i><span class="fs-6" id="sidebarItem">Dashboard</span></a>
+    <a href="/authors" class=<?= str_contains($_SERVER['REQUEST_URI'], 'authors') ? "activeLink" : '' ?>><i class="fa-solid fa-user "></i><span class="fs-6" id="sidebarItem">Author</span></a>
+    <a href="/books" class=<?= str_contains($_SERVER['REQUEST_URI'], 'books') ? "activeLink" : '' ?>><i class="fa-solid fa-book"></i><span class="fs-6" id="sidebarItem">Books</span></a>
+    <a href="/publishers" class=<?= str_contains($_SERVER['REQUEST_URI'], 'publishers') ? "activeLink" : '' ?>><i class="fa-solid fa-building"></i><span class="fs-6" id="sidebarItem">Publishers</span></a>
+    <a href="/genres" class=<?= str_contains($_SERVER['REQUEST_URI'], 'genres') ? "activeLink" : '' ?>><i class="fa-solid fa-book-reader"></i><span class="fs-6" id="sidebarItem">Genres</span></a>
+    <!-- <a href="#"><i class="fa-solid fa-address-book  "></i><span class="fs-6" id="sidebarItem">Contact</span></a> -->
     <a href="/users/logout"><i class="fa-solid fa-right-from-bracket"></i><span class="fs-6" id="sidebarItem">Logout</span></a>
 </div>
 

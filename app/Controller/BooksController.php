@@ -4,19 +4,22 @@ namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
 use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
+use RootNameSpace\Belajar\PHP\MVC\Domain\Publisher;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\BooksListRequest;
 use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 use RootNameSpace\Belajar\PHP\MVC\Service\BookService;
+use RootNameSpace\Belajar\PHP\MVC\Service\PublisherService;
 use RootNameSpace\Belajar\PHP\MVC\Service\SessionService;
 
 class BooksController
 {
 
     function __construct(
-        protected BookService $service,
+        protected BookService $bookService,
         protected SessionService $sessionService,
         protected AuthorService $authorService,
+        protected PublisherService $publisherService
     ) {
     }
     public function index()
@@ -33,10 +36,12 @@ class BooksController
 
             try {
                 $search = $_GET['search'] ?? '';
-                $books =  $this->service->search($search);
-                $authors = $this->authorService->showAll();
+                $books =  $this->bookService->search($search);
+                $authors = $this->authorService->findAll();
+                $publisher = $this->publisherService->findAll();
                 $model['books'] = $books;
                 $model['authors'] = $authors;
+                $model['publishers'] = $publisher;
             } catch (ValidationException $e) {
                 $model['booksError'] = $e->getMessage();
             }
@@ -55,13 +60,17 @@ class BooksController
             try {
                 $request = new BooksListRequest();
                 $request->name = $_POST['name'];
-                $request->genre = $_POST['genre'];
+                $request->image = $_POST['image'];
+                $request->genreId = $_POST['genreId'];
                 $request->releaseDate = $_POST['releaseDate'];
                 $request->authorId = $_POST['authorId'];
                 $request->synopsis = $_POST['synopsis'];
                 $request->pages = $_POST['pages'];
+                $request->publisherId = $_POST['publisherId'];
+                $request->price = $_POST['price'];
+                $request->stock = $_POST['stock'];
 
-                $success = $this->service->addBook($request);
+                $success = $this->bookService->add($request);
                 $model['success'] = 'Successfully added a new book';
 
                 if ($success) {
@@ -81,13 +90,13 @@ class BooksController
             try {
                 $request = new BooksListRequest();
                 $request->name = $_POST['name'];
-                $request->genre = $_POST['genre'];
+                $request->genreId = $_POST['genreId'];
                 $request->releaseDate = $_POST['releaseDate'];
                 $request->authorId = $_POST['authorId'];
                 $request->synopsis = $_POST['synopsis'];
                 $request->pages = $_POST['pages'];
 
-                $success = $this->service->updateById($id, $request);
+                $success = $this->bookService->updateById($id, $request);
                 $model['success'] = 'Successfully update book';
 
                 if ($success) {
@@ -109,8 +118,8 @@ class BooksController
 
         try {
             $search = $_GET['search'] ?? '';
-            $this->service->removeById($id);
-            $books = $this->service->search($search);
+            $this->bookService->removeById($id);
+            $books = $this->bookService->search($search);
             $model['books'] = $books;
             View::redirect('/books', $model);
         } catch (ValidationException $e) {
@@ -122,7 +131,7 @@ class BooksController
     public function getById(string $id)
     {
         try {
-            $detail = $this->service->getById($id);
+            $detail = $this->bookService->getById($id);
             $author = $this->authorService->getById($detail->authorId);
 
             if ($detail != null) {
@@ -130,11 +139,16 @@ class BooksController
                 echo json_encode(['data' => [
                     'id' => $detail->id,
                     'name' => $detail->name,
-                    'genre' => $detail->genre,
+                    'image' => $detail->image,
+                    'genreId' => $detail->genreId,
                     'releaseDate' => $detail->releaseDate,
                     'synopsis' => $detail->synopsis,
                     'pages' => $detail->pages,
-                    'author' => $author
+                    'author' => $author,
+                    'publisherId' => $detail->publisherId,
+                    'price' => $detail->price,
+                    'stock' => $detail->stock
+
                 ]]);
             }
         } catch (ValidationException $e) {

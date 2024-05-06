@@ -17,9 +17,6 @@ class UserRepository
     {
         $this->connection = $database->getConnection();
     }
-
-
-
     public function save(Users $users): Users
     {
 
