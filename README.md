@@ -1,6 +1,7 @@
 # The development of this application is fully using php native
 
-## This application is still in the development stage
+> [!NOTE]
+> This application is still in the development stage
 
 ## This application implements several psr such as :
 - dependency injection using php-di
