@@ -4,7 +4,6 @@ namespace RootNameSpace\Belajar\PHP\MVC\Model;
 
 class UsersRegisterRequest
 {
-
     public function __construct(
         public ?string $username = null,
         public ?string $name = null,

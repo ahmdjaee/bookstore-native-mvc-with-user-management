@@ -34,7 +34,7 @@ class AuthorRepository
         return $author;
     }
 
-    public function getAll(int $page, int $limit): array
+    public function findAll(int $page, int $limit): array
     {
 
         $sql = "SELECT * FROM authors ORDER BY id DESC";

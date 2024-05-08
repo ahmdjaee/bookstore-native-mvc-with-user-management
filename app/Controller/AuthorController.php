@@ -2,18 +2,14 @@
 
 namespace RootNameSpace\Belajar\PHP\MVC\Controller;
 
-use DI\Container;
 use RootNameSpace\Belajar\PHP\MVC\App\View;
-use RootNameSpace\Belajar\PHP\MVC\Config\Database;
 use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\AuthorRequest;
-use RootNameSpace\Belajar\PHP\MVC\Repository\AuthorRepository;
 use RootNameSpace\Belajar\PHP\MVC\Resource\JsonResource;
 use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 
 class AuthorController
 {
-
     public function __construct(protected AuthorService $service)
     {
     }
@@ -24,12 +20,11 @@ class AuthorController
         ];
 
         try {
-            $data = $this->service->showAll();
+            $data = $this->service->findAll();
             $model['data'] = $data;
 
             View::render('Authors/authors', $model);
-        } catch (ValidationException $e) {
-            $model['error'] = $e->getMessage();
+        } catch (ValidationException $e) {  
             View::render('Authors/authors', $model);
         }
     }
@@ -64,7 +59,7 @@ class AuthorController
         try {
             $search = $_GET['search'] ?? '';
             $this->service->removeById($id);
-            $books = $this->service->showAll();
+            $books = $this->service->findAll();
             $model['authors'] = $books;
             View::redirect('/authors', $model);
         } catch (ValidationException $e) {

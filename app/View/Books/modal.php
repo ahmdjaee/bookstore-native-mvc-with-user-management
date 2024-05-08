@@ -22,21 +22,24 @@
                         <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="<?= $_POST['name'] ?? '' ?>">
                     </div>
                     <div class="mb-3">
+                        <label for="image" class="form-label">Cover</label>
+                        <input type="text" id="image" name="image" class="form-control" placeholder="Image Link" value="<?= $_POST['image'] ?? '' ?>">
+                    </div>
+                    <div class="mb-3">
                         <label for="synopsis" class="form-label">Synopsis</label>
                         <textarea class="form-control" id="synopsis" name="synopsis" value="<?= $_POST['synopsis'] ?? '' ?>" rows="3"></textarea>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="formFile" class="form-label">Cover</label>
                         <input class="form-control" type="file" id="formFile">
-                    </div>
+                    </div> -->
                     <div class="mb-3">
-                        <label for="genre" class="form-label">Genre</label>
-                        <select class="form-select" name="genre" id="genre" aria-label="Default select example">
-                            <option selected value="<?= $_POST['genre'] ?? '' ?>">Genre</option>
-                            <option value="Action">Action</option>
-                            <option value="Romance">Romance</option>
-                            <option value="Drama">Drama</option>
-                            <option value="Sains">Sains</option>
+                        <label for="genreId" class="form-label">Genre</label>
+                        <select class="form-select" name="genreId" id="genreId" aria-label="Default select example">
+                            <option selected value="<?= $_POST['genreId'] ?? '' ?>">Select Genre</option>
+                            <?php foreach ($model['genres'] as $genre) : ?>
+                                <option value="<?= $genre->id ?>"><?= $genre->name ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -44,9 +47,9 @@
                         <input type="date" id="releaseDate" name="releaseDate" class="form-control" placeholder="Release Date" value="<?= $_POST['releaseDate'] ?? '' ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="genre" class="form-label">Author</label>
+                        <label for="authorId" class="form-label">Author</label>
                         <select class="form-select" name="authorId" id="authorId" aria-label="Default select example">
-                            <option selected value="<?= $_POST['authorId'] ?? '' ?>">Author</option>
+                            <option selected value="<?= $_POST['authorId'] ?? '' ?>">Select Author</option>
                             <?php foreach ($model['authors'] as $author) : ?>
                                 <option value="<?= $author->id ?>"><?= $author->name ?></option>
                             <?php endforeach; ?>
@@ -55,6 +58,23 @@
                     <div class="mb-3">
                         <label for="pages" class="form-label">Total Pages</label>
                         <input type="number" id="pages" name="pages" class="form-control" placeholder="Pages" value="<?= $_POST['pages'] ?? '' ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="publisherId" class="form-label">Publisher</label>
+                        <select class="form-select" name="publisherId" id="publisherId" aria-label="Default select example">
+                            <option selected value="<?= $_POST['publisherId'] ?? '' ?>">Select Publisher</option>
+                            <?php foreach ($model['publishers'] as $publisher) : ?>
+                                <option value="<?= $publisher->id ?>"><?= $publisher->name ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" id="price" name="price" class="form-control" placeholder="Price" value="<?= $_POST['price'] ?? '' ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="stock" class="form-label">Stock</label>
+                        <input type="number" id="stock" name="stock" class="form-control" placeholder="Stock" value="<?= $_POST['stock'] ?? '' ?>">
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                 </fieldset>

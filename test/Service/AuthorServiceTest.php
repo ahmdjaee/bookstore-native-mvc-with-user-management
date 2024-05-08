@@ -16,7 +16,8 @@ class AuthorServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->repository = new AuthorRepository(Database::getConnection());
+        $database = new Database();
+        $this->repository = new AuthorRepository($database);
         $this->service = new AuthorService($this->repository);
 
         (Database::getConnection())->query("DELETE FROM books");
@@ -49,7 +50,7 @@ class AuthorServiceTest extends TestCase
         );
 
         $this->service->add($request);
-        $data = $this->service->showAll();
+        $data = $this->service->findAll();
 
         $this->assertNotNull($data);
     }

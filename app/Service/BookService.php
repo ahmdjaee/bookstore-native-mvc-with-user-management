@@ -17,25 +17,26 @@ class BookService
     {
         $this->repository = $repository;
     }
-    public function addBook(BooksListRequest $request): BooksListResponse
+    public function add(BooksListRequest $request): BooksListResponse
     {
         $this->validateBooksListRequest($request);
 
         try {
-            $books = new Books();
-
-            $books->name = $request->name;
-            $books->genre = $request->genre;
-            $books->releaseDate = $request->releaseDate;
-            $books->authorId = $request->authorId;
-            $books->synopsis = $request->synopsis;
-            $books->pages = $request->pages;
+            $books = new Books(
+                name: $request->name,
+                image: $request->image,
+                genreId: $request->genreId,
+                releaseDate: $request->releaseDate,
+                authorId: $request->authorId,
+                synopsis: $request->synopsis,
+                pages: $request->pages,
+                publisherId: $request->publisherId,
+                price: $request->price,
+                stock: $request->stock
+            );
 
             $this->repository->save($books);
-
-
             $response = new BooksListResponse();
-
             $response->books = $books;
 
             return $response;
@@ -48,22 +49,18 @@ class BookService
     {
         switch ($request) {
             case $request->name == trim(""):
-            case $request->genre == trim(""):
+            case $request->genreId == trim(""):
             case $request->releaseDate == trim(""):
             case $request->authorId == trim(""):
             case $request->pages == trim(""):
             case $request->name == null:
-            case $request->genre == null:
+            case $request->genreId == null:
             case $request->releaseDate == null:
             case $request->authorId == null:
             case $request->pages == null:
                 throw new ValidationException("There must be no empty fields");
         }
     }
-    // public function getAllBooks(): array
-    // {
-    //     return $this->repository->getAll();
-    // }
 
     public function search(string $keyword = ""): ?array
     {
@@ -73,7 +70,6 @@ class BookService
             return $result;
         } else {
             return null;
-            // throw new ValidationException('No records Found');
         }
     }
 
@@ -83,7 +79,7 @@ class BookService
 
         if ($find) {
             $this->repository->remove($id);
-        } else {
+        }{
             throw new ValidationException('Id Not Found');
         }
     }
@@ -109,15 +105,19 @@ class BookService
         }
 
         try {
-            $books = new Books();
-
-            $books->id = $id;
-            $books->name = $request->name;
-            $books->genre = $request->genre;
-            $books->releaseDate = $request->releaseDate;
-            $books->authorId = $request->authorId;
-            $books->synopsis = $request->synopsis;
-            $books->pages = $request->pages;
+            $books = new Books(
+                id: $id,
+                name: $request->name,
+                image: $request->image,
+                genreId: $request->genreId,
+                releaseDate: $request->releaseDate,
+                authorId: $request->authorId,
+                synopsis: $request->synopsis,
+                pages: $request->pages,
+                publisherId: $request->publisherId,
+                price: $request->price,
+                stock: $request->stock
+            );
 
             $this->repository->update($books);
 

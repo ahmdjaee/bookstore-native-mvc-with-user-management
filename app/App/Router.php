@@ -6,7 +6,6 @@ use DI\Container;
 
 class Router
 {
-
     private static array $routes = [];
 
     public static function add(string $method, string $path, array $handler, array $middlewares = []): void

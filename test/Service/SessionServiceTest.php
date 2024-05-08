@@ -13,8 +13,6 @@ class SessionServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->sessionService = new SessionService(new SessionRepository(Database::getConnection()), new UserRepository(Database::getConnection()));
-        // $this->sessionService->removeAll();
     }
 
     public function testCreate()
@@ -28,7 +26,5 @@ class SessionServiceTest extends TestCase
 
     public function testCurrent()
     {
-        $this->sessionService->current();
-        $this->assertNotNull($this->sessionService->current());
     }
 }

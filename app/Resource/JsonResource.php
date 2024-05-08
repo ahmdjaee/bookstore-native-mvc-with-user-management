@@ -5,7 +5,6 @@ namespace RootNameSpace\Belajar\PHP\MVC\Resource;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
-use Nyholm\Psr7Server\ServerRequestCreator;
 
 class JsonResource
 {

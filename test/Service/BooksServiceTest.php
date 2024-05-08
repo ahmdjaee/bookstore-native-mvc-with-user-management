@@ -15,7 +15,8 @@ class BooksServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->repository = new BookRepository(Database::getConnection());
+        $database = new Database();
+        $this->repository = new BookRepository($database);
         $this->service = new BookService($this->repository);
     }
 
@@ -25,7 +26,7 @@ class BooksServiceTest extends TestCase
 
         $request->id = 1;
         $request->name = "test";
-        $request->genre = "test";
+        $request->genreId = "test";
         $request->releaseDate = "test";
         $request->authorId = 41;
         $request->synopsis = "test";

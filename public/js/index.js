@@ -4,7 +4,6 @@ const updateModal = document.getElementById('updateModal');
 const closeModal = document.getElementById('closeModal');
 const removeBook = document.getElementById('removeBook');
 const formAuthor = document.getElementById('formAuthor');
-const modal = document.getElementById('modal');
 
 const baseUrl = 'http://localhost:8001';
 

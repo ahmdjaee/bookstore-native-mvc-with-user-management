@@ -15,8 +15,9 @@ class SessionRepositoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->userRepository = new UserRepository(Database::getConnection());
-        $this->sessionRepository = new SessionRepository(Database::getConnection());
+        $database = new Database();
+        $this->userRepository = new UserRepository($database);
+        $this->sessionRepository = new SessionRepository($database);
 
         $this->sessionRepository->removeAll();
         $this->userRepository->removeAll();
@@ -73,9 +74,5 @@ class SessionRepositoryTest extends TestCase
     {
         $result = $this->sessionRepository->findById('notfound');
         self::assertNull($result);
-    }
-
-    public function testRemoveAll()
-    {
     }
 }
