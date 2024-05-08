@@ -2,6 +2,9 @@
 
 ## This application is still in the development stage
 
+## This application implements several psr such as :
+- dependency injection using php-di
+
 ## If you wanna try run command below to install
 - Composer install
 - Composer dump-autoload
