@@ -7,17 +7,18 @@ use RootNameSpace\Belajar\PHP\MVC\Exception\ValidationException;
 use RootNameSpace\Belajar\PHP\MVC\Model\BooksListRequest;
 use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 use RootNameSpace\Belajar\PHP\MVC\Service\BookService;
+use RootNameSpace\Belajar\PHP\MVC\Service\GenreService;
 use RootNameSpace\Belajar\PHP\MVC\Service\PublisherService;
 use RootNameSpace\Belajar\PHP\MVC\Service\SessionService;
 
 class BooksController
 {
-
     function __construct(
         protected BookService $bookService,
         protected SessionService $sessionService,
         protected AuthorService $authorService,
-        protected PublisherService $publisherService
+        protected PublisherService $publisherService,
+        protected GenreService $genreService
     ) {
     }
     public function index()
@@ -35,9 +36,11 @@ class BooksController
             try {
                 $search = $_GET['search'] ?? '';
                 $books =  $this->bookService->search($search);
+                $genre = $this->genreService->findAll();
                 $authors = $this->authorService->findAll();
                 $publisher = $this->publisherService->findAll();
                 $model['books'] = $books;
+                $model['genres'] = $genre;
                 $model['authors'] = $authors;
                 $model['publishers'] = $publisher;
             } catch (ValidationException $e) {

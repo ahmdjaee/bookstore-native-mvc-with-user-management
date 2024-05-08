@@ -20,7 +20,6 @@ class BookRepository
 
     public function save(Books $books): Books
     {
-
         $sql = "INSERT INTO books VALUES (:id, :name, :image, :genre_id, :release_date, :author_id, :pages, :synopsis ,  :publisher_id, :price, :stock)";
 
         $statement = $this->connection->prepare($sql);
@@ -135,10 +134,26 @@ class BookRepository
     {
         $offset = ($page - 1) * $limit;
 
-        $sql = "SELECT * FROM books Where name LIKE ? OR genre_id LIKE ? OR author_id LIKE ? ORDER BY id DESC LIMIT $limit OFFSET $offset";
-        $statement = $this->connection->prepare($sql);
+        $sql = "SELECT
+                b.id,
+                b.name,
+                b.image,
+                b.release_date,
+                b.synopsis,
+                b.pages,
+                b.price,
+                b.stock,
+                a.name as author,
+                p.name as publisher,
+                g.name as genre
+                FROM books as b 
+                Inner Join authors as a on b.author_id = a.id
+                Inner Join publishers as p on b.publisher_id = p.id
+                Inner Join genres as g on b.genre_id = g.id
+                where b.name like ? Or a.name like ? Or p.name like ? Or g.name like ? Order by b.id Desc ";
 
-        $statement->execute(['%' . $keyword . '%', '%' . $keyword . '%', '%' . $keyword . '%']);
+        $statement = $this->connection->prepare($sql);
+        $statement->execute(["%$keyword%", "%$keyword%", "%$keyword%", "%$keyword%"]);
 
         $array = [];
 
@@ -147,17 +162,25 @@ class BookRepository
                 id: $row['id'],
                 name: $row['name'],
                 image: $row['image'],
-                genreId: $row['genre_id'],
+                genre: $row['genre'],
                 releaseDate: $row['release_date'],
-                authorId: $row['author_id'],
+                author: $row['author'],
                 synopsis: $row['synopsis'],
                 pages: $row['pages'],
-                publisherId: $row['publisher_id'],
+                publisher: $row['publisher'],
                 price: $row['price'],
                 stock: $row['stock']
             );
         }
 
         return $array;
+    }
+
+    public function total(): int
+    {
+        $sql = "SELECT COUNT(*) FROM books";
+
+        $statement = $this->connection->query($sql);
+        return (int) $statement->fetchColumn();
     }
 }

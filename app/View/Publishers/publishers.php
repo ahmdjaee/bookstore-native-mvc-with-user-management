@@ -27,6 +27,7 @@
             <table class="table">
                 <thead class="text-start position-sticky top-0">
                     <tr>
+                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Address</th>
                         <th scope="col">Action</th>
@@ -36,6 +37,7 @@
                     <?php if (isset($model['publishers'])) : ?>
                         <?php foreach ($model['publishers'] as $key => $publisher) : ?>
                             <tr valign="middle">
+                                <td><?= $publisher->id ?></td>
                                 <td class="text-truncate"><?= $publisher->name ?></td>
                                 <td class="text-truncate"><?= $publisher->address ?></td>
                                 <td>
@@ -47,8 +49,8 @@
                             </tr>
                         <?php endforeach ?>
                     <?php else : ?>
-                        <td colspan="6" rowspan="4" style="text-align: center;">
-                            <span><?= $model['notFound'] ?? null ?></span>
+                        <td colspan="11" style="text-align: center; vertical-align: middle; border:none">
+                            <img src="<?= BASE_URL . '/assets/image/image.png' ?>" alt="">
                         </td>
                     <?php endif; ?>
                 </tbody>

@@ -68,8 +68,20 @@ class GenreRepository
         $this->connection->exec($sql);
     }
 
-    public function findAll()
+    public function findAll(): array
     {
+        $sql = "SELECT * FROM genres ORDER BY id DESC";
+        $statement = $this->connection->query($sql);
+        $result = [];
+
+        while ($row = $statement->fetch()) {
+            $result[] = new Genre(
+                id: $row['id'],
+                name: $row['name']
+            );
+        }
+
+        return $result;
     }
 
     public function search(string $keyword): array
@@ -82,6 +94,7 @@ class GenreRepository
 
         while ($row = $statement->fetch()) {
             $result[] = new Genre(
+                id: $row['id'],
                 name: $row['name']
             );
         }

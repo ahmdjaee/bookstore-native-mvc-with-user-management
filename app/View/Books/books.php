@@ -1,8 +1,7 @@
-<?php 
-    include __DIR__ . './../sidebar.php';
-    include __DIR__ . './modal.php';
+<?php
+include __DIR__ . './../sidebar.php';
+include __DIR__ . './modal.php';
 ?>
-
 <main id="container" class="d-flex flex-column align-items-center" style="margin-left: 250px; transition: 0.5s; height: 100%">
     <?php if (isset($model['error'])) : ?>
         <div class="alert alert-danger mt-3" role="alert">
@@ -29,17 +28,17 @@
             <table class="table">
                 <thead class="text-start position-sticky top-0">
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Cover</th>
-                        <th scope="col">Synopsis</th>
-                        <th scope="col">Genre Id</th>
-                        <th scope="col">Release Date</th>
-                        <th scope="col">Author Id</th>
-                        <th scope="col">Pages</th>
-                        <th scope="col">Publisher Id</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Action</th>
+                        <th class="text-truncate" scope="col">Name</th>
+                        <th class="text-truncate" scope="col">Cover</th>
+                        <th class="text-truncate" scope="col">Synopsis</th>
+                        <th class="text-truncate" scope="col">Genre</th>
+                        <th class="text-truncate" scope="col">Release Date</th>
+                        <th class="text-truncate" scope="col">Author</th>
+                        <th class="text-truncate" scope="col">Pages</th>
+                        <th class="text-truncate" scope="col">Publisher</th>
+                        <th class="text-truncate" scope="col">Price</th>
+                        <th class="text-truncate" scope="col">Stock</th>
+                        <th class="text-truncate" scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody class="text-start">
@@ -49,11 +48,11 @@
                                 <td><?= $book->name ?></td>
                                 <td scope="row"><img class="rounded-1" src=<?= $book->image ?> style="width: 50px; height: 50px;"></td>
                                 <td class="text-truncate" style="max-width: 220px; max-lines: 2;"><?= $book->synopsis ?></td>
-                                <td><?= $book->genreId ?></td>
+                                <td><?= $book->author ?></td>
                                 <td><?= $book->releaseDate ?></td>
-                                <td><?= $book->authorId ?></td>
+                                <td><?= $book->author ?></td>
                                 <td><?= $book->pages ?></td>
-                                <td><?= $book->publisherId ?></td>
+                                <td><?= $book->author ?></td>
                                 <td style="font-weight: 600 ;"><?= "Rp. " . number_format($book->price) ?></td>
                                 <td><?= $book->stock == 0 ? "Out of Stock" : $book->stock . " pcs" ?></td>
                                 <td>
@@ -65,8 +64,8 @@
                             </tr>
                         <?php endforeach ?>
                     <?php else : ?>
-                        <td colspan="11" rowspan="4" style="text-align: center;">
-                            <span>No Data Found</span>
+                        <td colspan="11" style="text-align: center; vertical-align: middle; border:none">
+                            <img src="<?= BASE_URL . '/assets/image/image.png' ?>" alt="">
                         </td>
                     <?php endif; ?>
                 </tbody>

@@ -48,15 +48,24 @@ class GenreService
     {
     }
 
-    public function search(string $keyword = ""): array
+    public function search(string $keyword = ""): ?array
     {
         $result = $this->repository->search($keyword);
 
         if (empty($result)) {
-            throw new ValidationException("publisher not found");
+            return null;
         } else {
             return $result;
         }
+    }
+
+    public function findAll(): ?array
+    {
+        $result = $this->repository->findAll();
+        if (empty($result)) {
+            return null;
+        }
+        return $result;
     }
 
     private function validationRequest(GenreRequest $request)

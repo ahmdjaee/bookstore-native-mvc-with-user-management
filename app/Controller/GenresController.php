@@ -26,7 +26,7 @@ class GenresController
         } else {
             try {
                 $genres = $this->service->search($keyword);
-                $model['publishers'] = $genres;
+                $model['genres'] = $genres;
             } catch (ValidationException $e) {
                 $model['notFound'] = $e->getMessage();
             }

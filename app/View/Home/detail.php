@@ -24,7 +24,10 @@
             <span>01-01-2022</span>
         </div>
 
-        <button type="button" class="btn btn-dark">Order</button>
+        <div class="d-flex gap-4">
+            <button type="button" class="btn btn-warning"><i class="fas fa-shopping-cart mx-1"></i>Add to cart</button>
+            <button type="button" class="btn btn-dark">Order</button>
+        </div>
 
     </div>
 

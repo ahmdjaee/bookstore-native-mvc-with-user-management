@@ -4,9 +4,12 @@
             <img src="https://img.freepik.com/free-vector/gradient-bookstore-logo_23-2149332421.jpg" alt="Bootstrap" width="36" height="30">
         </a>
         <form class="d-flex" style="width: 50%;" role="search" action="/search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
         </form>
-        <ul class="nav justify-content-end">
+        <ul class="nav justify-content-end align-items-center">
+            <li>
+                <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link link-secondary" aria-current="page" href="/dashboard">Dashboard</a>
             </li>

@@ -10,7 +10,6 @@ use RootNameSpace\Belajar\PHP\MVC\Service\AuthorService;
 
 class AuthorController
 {
-
     public function __construct(protected AuthorService $service)
     {
     }
@@ -25,8 +24,7 @@ class AuthorController
             $model['data'] = $data;
 
             View::render('Authors/authors', $model);
-        } catch (ValidationException $e) {
-            $model['error'] = $e->getMessage();
+        } catch (ValidationException $e) {  
             View::render('Authors/authors', $model);
         }
     }

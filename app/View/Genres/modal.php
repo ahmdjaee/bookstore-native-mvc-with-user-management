@@ -11,7 +11,7 @@
     <?php endif; ?>
     <div class="card" style="width: 50vw; height: min-content;">
         <div class="card-body">
-            <form id="formAuthor" method="post">
+            <form id="formGenre" method="post">
                 <fieldset>
                     <div class="d-flex justify-content-between">
                         <legend>Insert Data Below </legend>
