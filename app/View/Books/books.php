@@ -48,7 +48,7 @@ include __DIR__ . './modal.php';
                                 <td><?= $book->name ?></td>
                                 <td scope="row"><img class="rounded-1" src=<?= $book->image ?> style="width: 50px; height: 50px;"></td>
                                 <td class="text-truncate" style="max-width: 220px; max-lines: 2;"><?= $book->synopsis ?></td>
-                                <td><?= $book->author ?></td>
+                                <td><?= $book->genre ?></td>
                                 <td><?= $book->releaseDate ?></td>
                                 <td><?= $book->author ?></td>
                                 <td><?= $book->pages ?></td>
