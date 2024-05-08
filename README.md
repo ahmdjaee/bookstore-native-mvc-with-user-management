@@ -7,9 +7,9 @@
 
 ## If you wanna try run command below to install
 ```
-- Composer install
-- Composer dump-autoload
-- Cd public
+- composer install
+- composer dump-autoload
+- cd public
 - php -S localhost:8001
 ```
 the application will run on server localhost::8001
